@@ -10,6 +10,12 @@
 		716DA0F2210C7B230053342F /* SockTalk.h in Headers */ = {isa = PBXBuildFile; fileRef = 716DA0F0210C7B230053342F /* SockTalk.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		716DA0FA210C7B900053342F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 716DA0F9210C7B900053342F /* README.md */; };
 		716DA0FC210C7BA60053342F /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 716DA0FB210C7BA60053342F /* LICENSE */; };
+		716DA0FE210C7FE00053342F /* MessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716DA0FD210C7FE00053342F /* MessageHandler.swift */; };
+		716DA100210C99BB0053342F /* SockTalkServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716DA0FF210C99BB0053342F /* SockTalkServer.swift */; };
+		716DA102210C9A4E0053342F /* SockTalkClientHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716DA101210C9A4E0053342F /* SockTalkClientHandler.swift */; };
+		716DA104210C9AE40053342F /* SockTalkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716DA103210C9AE40053342F /* SockTalkClient.swift */; };
+		716DA106210C9B450053342F /* AcceptThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716DA105210C9B450053342F /* AcceptThread.swift */; };
+		716DA108210C9B4E0053342F /* MsgThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716DA107210C9B4E0053342F /* MsgThread.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -18,6 +24,12 @@
 		716DA0F1210C7B230053342F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		716DA0F9210C7B900053342F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		716DA0FB210C7BA60053342F /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		716DA0FD210C7FE00053342F /* MessageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageHandler.swift; sourceTree = "<group>"; };
+		716DA0FF210C99BB0053342F /* SockTalkServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SockTalkServer.swift; sourceTree = "<group>"; };
+		716DA101210C9A4E0053342F /* SockTalkClientHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SockTalkClientHandler.swift; sourceTree = "<group>"; };
+		716DA103210C9AE40053342F /* SockTalkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SockTalkClient.swift; sourceTree = "<group>"; };
+		716DA105210C9B450053342F /* AcceptThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptThread.swift; sourceTree = "<group>"; };
+		716DA107210C9B4E0053342F /* MsgThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgThread.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +65,12 @@
 			children = (
 				716DA0F0210C7B230053342F /* SockTalk.h */,
 				716DA0F1210C7B230053342F /* Info.plist */,
+				716DA0FD210C7FE00053342F /* MessageHandler.swift */,
+				716DA0FF210C99BB0053342F /* SockTalkServer.swift */,
+				716DA103210C9AE40053342F /* SockTalkClient.swift */,
+				716DA105210C9B450053342F /* AcceptThread.swift */,
+				716DA107210C9B4E0053342F /* MsgThread.swift */,
+				716DA101210C9A4E0053342F /* SockTalkClientHandler.swift */,
 			);
 			path = SockTalk;
 			sourceTree = "<group>";
@@ -109,6 +127,7 @@
 				TargetAttributes = {
 					716DA0EC210C7B230053342F = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 0940;
 					};
 				};
 			};
@@ -146,6 +165,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				716DA106210C9B450053342F /* AcceptThread.swift in Sources */,
+				716DA108210C9B4E0053342F /* MsgThread.swift in Sources */,
+				716DA100210C99BB0053342F /* SockTalkServer.swift in Sources */,
+				716DA102210C9A4E0053342F /* SockTalkClientHandler.swift in Sources */,
+				716DA104210C9AE40053342F /* SockTalkClient.swift in Sources */,
+				716DA0FE210C7FE00053342F /* MessageHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,6 +299,7 @@
 		716DA0F6210C7B230053342F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -293,6 +319,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Arc676.SockTalk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -300,6 +327,7 @@
 		716DA0F7210C7B230053342F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;

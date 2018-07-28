@@ -1,5 +1,5 @@
 //
-//  SockTalk.h
+//  ClientHandler.swift
 //  SockTalk
 //
 //  Created by Alessandro Vinciguerra on 28/07/2018.
@@ -19,14 +19,8 @@
 //along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //See README and LICENSE for more details
 
-#import <Cocoa/Cocoa.h>
+import Foundation
 
-//! Project version number for SockTalk.
-FOUNDATION_EXPORT double SockTalkVersionNumber = 0.1;
-
-//! Project version string for SockTalk.
-FOUNDATION_EXPORT const unsigned char SockTalkVersionString[] = "0.1";
-
-// In this header, you should import all the public headers of your framework using statements like #import <SockTalk/PublicHeader.h>
-
-
+class SockTalkClientHandler {
+	
+}

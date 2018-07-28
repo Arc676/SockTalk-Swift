@@ -1,5 +1,5 @@
 //
-//  SockTalk.h
+//  SockTalkServer.swift
 //  SockTalk
 //
 //  Created by Alessandro Vinciguerra on 28/07/2018.
@@ -19,14 +19,16 @@
 //along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //See README and LICENSE for more details
 
-#import <Cocoa/Cocoa.h>
+import Foundation
 
-//! Project version number for SockTalk.
-FOUNDATION_EXPORT double SockTalkVersionNumber = 0.1;
+protocol SockTalkServer : MessageHandler {
+	var serverSock: Int { get set }
+	var serverPort: Int { get set }
 
-//! Project version string for SockTalk.
-FOUNDATION_EXPORT const unsigned char SockTalkVersionString[] = "0.1";
+	var handlers: [SockTalkClientHandler] { get }
 
-// In this header, you should import all the public headers of your framework using statements like #import <SockTalk/PublicHeader.h>
+	func checkHandlers()
+	func closeServer()
 
-
+	func usernameTaken(_ username: String) -> Bool
+}
