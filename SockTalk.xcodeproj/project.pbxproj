@@ -17,10 +17,14 @@
 		716DA106210C9B450053342F /* AcceptThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716DA105210C9B450053342F /* AcceptThread.swift */; };
 		716DA108210C9B4E0053342F /* MsgThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716DA107210C9B4E0053342F /* MsgThread.swift */; };
 		716DA10A210DBC480053342F /* SockTalkServerExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716DA109210DBC480053342F /* SockTalkServerExt.swift */; };
+		716DA112210E566F0053342F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716DA111210E566F0053342F /* AppDelegate.swift */; };
+		716DA114210E566F0053342F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716DA113210E566F0053342F /* ViewController.swift */; };
+		716DA116210E56720053342F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 716DA115210E56720053342F /* Assets.xcassets */; };
+		716DA119210E56720053342F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 716DA117210E56720053342F /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		716DA0ED210C7B230053342F /* SockTalk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SockTalk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		716DA0ED210C7B230053342F /* SockTalk_Lib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SockTalk_Lib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		716DA0F0210C7B230053342F /* SockTalk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SockTalk.h; sourceTree = "<group>"; };
 		716DA0F1210C7B230053342F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		716DA0F9210C7B900053342F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -32,10 +36,24 @@
 		716DA105210C9B450053342F /* AcceptThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptThread.swift; sourceTree = "<group>"; };
 		716DA107210C9B4E0053342F /* MsgThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgThread.swift; sourceTree = "<group>"; };
 		716DA109210DBC480053342F /* SockTalkServerExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SockTalkServerExt.swift; sourceTree = "<group>"; };
+		716DA10F210E566F0053342F /* SockTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SockTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		716DA111210E566F0053342F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		716DA113210E566F0053342F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		716DA115210E56720053342F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		716DA118210E56720053342F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		716DA11A210E56720053342F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		716DA11B210E56720053342F /* SockTalk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SockTalk.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		716DA0E9210C7B230053342F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		716DA10C210E566F0053342F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -49,7 +67,8 @@
 			isa = PBXGroup;
 			children = (
 				716DA0F8210C7B850053342F /* Meta */,
-				716DA0EF210C7B230053342F /* SockTalk */,
+				716DA0EF210C7B230053342F /* SockTalk Lib */,
+				716DA110210E566F0053342F /* SockTalk */,
 				716DA0EE210C7B230053342F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -57,12 +76,13 @@
 		716DA0EE210C7B230053342F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				716DA0ED210C7B230053342F /* SockTalk.framework */,
+				716DA0ED210C7B230053342F /* SockTalk_Lib.framework */,
+				716DA10F210E566F0053342F /* SockTalk.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		716DA0EF210C7B230053342F /* SockTalk */ = {
+		716DA0EF210C7B230053342F /* SockTalk Lib */ = {
 			isa = PBXGroup;
 			children = (
 				716DA0F0210C7B230053342F /* SockTalk.h */,
@@ -75,7 +95,7 @@
 				716DA107210C9B4E0053342F /* MsgThread.swift */,
 				716DA101210C9A4E0053342F /* SockTalkClientHandler.swift */,
 			);
-			path = SockTalk;
+			path = "SockTalk Lib";
 			sourceTree = "<group>";
 		};
 		716DA0F8210C7B850053342F /* Meta */ = {
@@ -85,6 +105,19 @@
 				716DA0F9210C7B900053342F /* README.md */,
 			);
 			name = Meta;
+			sourceTree = "<group>";
+		};
+		716DA110210E566F0053342F /* SockTalk */ = {
+			isa = PBXGroup;
+			children = (
+				716DA111210E566F0053342F /* AppDelegate.swift */,
+				716DA113210E566F0053342F /* ViewController.swift */,
+				716DA115210E56720053342F /* Assets.xcassets */,
+				716DA117210E56720053342F /* Main.storyboard */,
+				716DA11A210E56720053342F /* Info.plist */,
+				716DA11B210E56720053342F /* SockTalk.entitlements */,
+			);
+			path = SockTalk;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -101,9 +134,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		716DA0EC210C7B230053342F /* SockTalk */ = {
+		716DA0EC210C7B230053342F /* SockTalk Lib */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 716DA0F5210C7B230053342F /* Build configuration list for PBXNativeTarget "SockTalk" */;
+			buildConfigurationList = 716DA0F5210C7B230053342F /* Build configuration list for PBXNativeTarget "SockTalk Lib" */;
 			buildPhases = (
 				716DA0E8210C7B230053342F /* Sources */,
 				716DA0E9210C7B230053342F /* Frameworks */,
@@ -114,10 +147,27 @@
 			);
 			dependencies = (
 			);
+			name = "SockTalk Lib";
+			productName = SockTalk;
+			productReference = 716DA0ED210C7B230053342F /* SockTalk_Lib.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		716DA10E210E566F0053342F /* SockTalk */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 716DA11C210E56720053342F /* Build configuration list for PBXNativeTarget "SockTalk" */;
+			buildPhases = (
+				716DA10B210E566F0053342F /* Sources */,
+				716DA10C210E566F0053342F /* Frameworks */,
+				716DA10D210E566F0053342F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
 			name = SockTalk;
 			productName = SockTalk;
-			productReference = 716DA0ED210C7B230053342F /* SockTalk.framework */;
-			productType = "com.apple.product-type.framework";
+			productReference = 716DA10F210E566F0053342F /* SockTalk.app */;
+			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
@@ -125,12 +175,16 @@
 		716DA0E4210C7B230053342F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0940;
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = Arc676;
 				TargetAttributes = {
 					716DA0EC210C7B230053342F = {
 						CreatedOnToolsVersion = 9.4.1;
 						LastSwiftMigration = 0940;
+					};
+					716DA10E210E566F0053342F = {
+						CreatedOnToolsVersion = 9.4.1;
 					};
 				};
 			};
@@ -140,13 +194,15 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 716DA0E3210C7B230053342F;
 			productRefGroup = 716DA0EE210C7B230053342F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				716DA0EC210C7B230053342F /* SockTalk */,
+				716DA0EC210C7B230053342F /* SockTalk Lib */,
+				716DA10E210E566F0053342F /* SockTalk */,
 			);
 		};
 /* End PBXProject section */
@@ -158,6 +214,15 @@
 			files = (
 				716DA0FC210C7BA60053342F /* LICENSE in Resources */,
 				716DA0FA210C7B900053342F /* README.md in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		716DA10D210E566F0053342F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				716DA116210E56720053342F /* Assets.xcassets in Resources */,
+				716DA119210E56720053342F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,7 +243,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		716DA10B210E566F0053342F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				716DA114210E566F0053342F /* ViewController.swift in Sources */,
+				716DA112210E566F0053342F /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		716DA117210E56720053342F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				716DA118210E56720053342F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		716DA0F3210C7B230053342F /* Debug */ = {
@@ -320,7 +405,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Arc676.SockTalk;
+				PRODUCT_BUNDLE_IDENTIFIER = Arc676.LibSockTalk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -348,9 +433,47 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Arc676.SockTalk;
+				PRODUCT_BUNDLE_IDENTIFIER = Arc676.LibSockTalk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		716DA11D210E56720053342F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SockTalk/SockTalk.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = T42F23M422;
+				INFOPLIST_FILE = SockTalk/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Arc676.SockTalk;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		716DA11E210E56720053342F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SockTalk/SockTalk.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = T42F23M422;
+				INFOPLIST_FILE = SockTalk/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Arc676.SockTalk;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
@@ -367,11 +490,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		716DA0F5210C7B230053342F /* Build configuration list for PBXNativeTarget "SockTalk" */ = {
+		716DA0F5210C7B230053342F /* Build configuration list for PBXNativeTarget "SockTalk Lib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				716DA0F6210C7B230053342F /* Debug */,
 				716DA0F7210C7B230053342F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		716DA11C210E56720053342F /* Build configuration list for PBXNativeTarget "SockTalk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				716DA11D210E56720053342F /* Debug */,
+				716DA11E210E56720053342F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
