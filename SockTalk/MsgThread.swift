@@ -23,15 +23,41 @@ import Foundation
 
 class MsgThread {
 
+	static let BUF_SIZE = 2048
+
 	var username: String
+	var sock: Int32
 	var handler: MessageHandler
 
 	var running: Bool
 
-	init(username: String, handler: MessageHandler) {
+	init(username: String, sock: Int32, handler: MessageHandler) {
 		self.username = username
+		self.sock = sock
 		self.handler = handler
 		running = true
+
+		let _ = Thread(target: self, selector: #selector(run), object: nil)
+	}
+
+	@objc func run() {
+		let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: MsgThread.BUF_SIZE)
+		while running {
+			let bytes = read(sock, buffer, MsgThread.BUF_SIZE)
+			if bytes < 0 {
+				handler.handleMessage("Failed to read", type: .ERROR)
+				running = false
+			} else if bytes == 0 {
+				handler.handleMessage("\(username) disconnected", type: .INFO)
+				running = false
+			} else {
+				let msg = String(cString: buffer)
+				handler.handleMessage(msg, type: .MESSAGE)
+			}
+			buffer.assign(repeating: 0, count: MsgThread.BUF_SIZE)
+		}
+		buffer.deallocate()
+		Thread.exit()
 	}
 
 }

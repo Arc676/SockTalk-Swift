@@ -22,5 +22,35 @@
 import Foundation
 
 class SockTalkClientHandler {
+
+	var msgThread: MsgThread?
+	var sock: Int32
+
+	init(sock: Int32, server: SockTalkServer) {
+		self.sock = sock
+		let user = UnsafeMutablePointer<UInt8>.allocate(capacity: 255)
+		read(sock, user, 255)
+		let username = String(cString: user)
+		user.deallocate()
+		if server.usernameTaken(username) {
+			send("N")
+		} else {
+			send("K")
+			msgThread = MsgThread(username: username, sock: sock, handler: server)
+		}
+	}
+
+	func send(_ msg: String) {
+		write(sock, msg, msg.count)
+	}
+
+	func stop() {
+		msgThread?.running = false
+		close(sock)
+	}
+
+	func isRunning() -> Bool {
+		return msgThread?.running ?? false
+	}
 	
 }
