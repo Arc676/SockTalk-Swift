@@ -16,6 +16,7 @@
 		716DA104210C9AE40053342F /* SockTalkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716DA103210C9AE40053342F /* SockTalkClient.swift */; };
 		716DA106210C9B450053342F /* AcceptThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716DA105210C9B450053342F /* AcceptThread.swift */; };
 		716DA108210C9B4E0053342F /* MsgThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716DA107210C9B4E0053342F /* MsgThread.swift */; };
+		716DA10A210DBC480053342F /* SockTalkServerExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716DA109210DBC480053342F /* SockTalkServerExt.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		716DA103210C9AE40053342F /* SockTalkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SockTalkClient.swift; sourceTree = "<group>"; };
 		716DA105210C9B450053342F /* AcceptThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptThread.swift; sourceTree = "<group>"; };
 		716DA107210C9B4E0053342F /* MsgThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgThread.swift; sourceTree = "<group>"; };
+		716DA109210DBC480053342F /* SockTalkServerExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SockTalkServerExt.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 				716DA0F1210C7B230053342F /* Info.plist */,
 				716DA0FD210C7FE00053342F /* MessageHandler.swift */,
 				716DA0FF210C99BB0053342F /* SockTalkServer.swift */,
+				716DA109210DBC480053342F /* SockTalkServerExt.swift */,
 				716DA103210C9AE40053342F /* SockTalkClient.swift */,
 				716DA105210C9B450053342F /* AcceptThread.swift */,
 				716DA107210C9B4E0053342F /* MsgThread.swift */,
@@ -170,6 +173,7 @@
 				716DA100210C99BB0053342F /* SockTalkServer.swift in Sources */,
 				716DA102210C9A4E0053342F /* SockTalkClientHandler.swift in Sources */,
 				716DA104210C9AE40053342F /* SockTalkClient.swift in Sources */,
+				716DA10A210DBC480053342F /* SockTalkServerExt.swift in Sources */,
 				716DA0FE210C7FE00053342F /* MessageHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

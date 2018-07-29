@@ -1,8 +1,8 @@
 //
-//  ClientHandler.swift
+//  SockTalkServerExt.swift
 //  SockTalk
 //
-//  Created by Alessandro Vinciguerra on 28/07/2018.
+//  Created by Alessandro Vinciguerra on 29/07/2018.
 //      <alesvinciguerra@gmail.com>
 //Copyright (C) 2018 Arc676/Alessandro Vinciguerra
 
@@ -21,37 +21,27 @@
 
 import Foundation
 
-class SockTalkClientHandler {
+extension SockTalkServer {
 
-	var msgThread: MsgThread?
-	var sock: Int32
-	var username: String
+	mutating func addHandler(_ handler: SockTalkClientHandler) {
+		handlers.append(handler)
+	}
 
-	init(sock: Int32, server: SockTalkServer) {
-		self.sock = sock
-		let user = UnsafeMutablePointer<UInt8>.allocate(capacity: 255)
-		read(sock, user, 255)
-		username = String(cString: user)
-		user.deallocate()
-		if server.usernameTaken(username) {
-			send("N")
-		} else {
-			send("K")
-			msgThread = MsgThread(username: username, sock: sock, handler: server)
+	func usernameTaken(_ username: String) -> Bool {
+		for handler in handlers {
+			if handler.username == username {
+				return true
+			}
+		}
+		return false
+	}
+
+	func closeServer() {
+		close(serverSock)
+		acceptThread.running = false
+		for handler in handlers {
+			handler.stop()
 		}
 	}
 
-	func send(_ msg: String) {
-		write(sock, msg, msg.count)
-	}
-
-	func stop() {
-		msgThread?.running = false
-		close(sock)
-	}
-
-	func isRunning() -> Bool {
-		return msgThread?.running ?? false
-	}
-	
 }

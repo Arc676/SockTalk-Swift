@@ -22,13 +22,18 @@
 import Foundation
 
 protocol SockTalkServer : MessageHandler {
-	var serverSock: Int { get set }
-	var serverPort: Int { get set }
 
-	var handlers: [SockTalkClientHandler] { get }
+	var serverSock: Int32 { get set }
+	var serverPort: Int32 { get set }
 
+	var acceptThread: AcceptThread { get set }
+
+	var handlers: [SockTalkClientHandler] { get set }
+
+	func addHandler(_ handler: SockTalkClientHandler)
 	func checkHandlers()
 	func closeServer()
 
 	func usernameTaken(_ username: String) -> Bool
+	
 }

@@ -24,11 +24,31 @@ import Foundation
 class AcceptThread {
 
 	var server: SockTalkServer
+	var sock: Int32
 	var running: Bool
 
-	init(server: SockTalkServer) {
+	init(server: SockTalkServer, sock: Int32) {
 		self.server = server
+		self.sock = sock
 		running = true
+
+		let _ = Thread(target: self, selector: #selector(run), object: nil)
+	}
+
+	@objc func run() {
+		while running {
+			let clientSock = accept(sock, nil, nil)
+			if clientSock < 0 {
+				server.handleMessage("Failed to accept", type: .ERROR)
+				running = false
+			} else {
+				let handler = SockTalkClientHandler(sock: sock, server: server)
+				if handler.isRunning() {
+					server.addHandler(handler)
+				}
+			}
+		}
+		Thread.exit()
 	}
 
 }
