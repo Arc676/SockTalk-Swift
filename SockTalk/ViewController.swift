@@ -3,25 +3,41 @@
 //  SockTalk
 //
 //  Created by Alessandro Vinciguerra on 29/07/2018.
-//  Copyright © 2018 Arc676. All rights reserved.
-//
+//      <alesvinciguerra@gmail.com>
+//Copyright (C) 2018 Arc676/Alessandro Vinciguerra
+
+//This program is free software: you can redistribute it and/or modify
+//it under the terms of the GNU General Public License as published by
+//the Free Software Foundation (version 3)
+
+//This program is distributed in the hope that it will be useful,
+//but WITHOUT ANY WARRANTY; without even the implied warranty of
+//MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//GNU General Public License for more details.
+
+//You should have received a copy of the GNU General Public License
+//along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//See README and LICENSE for more details
 
 import Cocoa
 
 class ViewController: NSViewController {
 
-	override func viewDidLoad() {
-		super.viewDidLoad()
+	@IBOutlet weak var servPortField: NSTextField!
 
-		// Do any additional setup after loading the view.
+	@IBAction func startHosting(_ sender: Any) {
 	}
 
-	override var representedObject: Any? {
-		didSet {
-		// Update the view, if already loaded.
-		}
+	@IBOutlet weak var clientIPField: NSTextField!
+	@IBOutlet weak var clientPortField: NSTextField!
+
+	@IBAction func joinChat(_ sender: Any) {
 	}
 
-
+	@IBOutlet var transcript: NSTextView!
+	@IBOutlet weak var msgField: NSTextField!
+	
+	@IBAction func sendMessage(_ sender: Any) {
+	}
+	
 }
-
