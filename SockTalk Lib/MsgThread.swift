@@ -21,7 +21,7 @@
 
 import Foundation
 
-class MsgThread {
+open class MsgThread {
 
 	static let BUF_SIZE = 2048
 

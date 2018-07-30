@@ -21,28 +21,28 @@
 
 import Foundation
 
-extension SockTalkClient {
+public extension SockTalkClient {
 
-	mutating func initialize(port: Int, host: String, username: String) {
+	public func initialize(port: Int, host: String, username: String) {
 		self.username = username
 		sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-		write(sock, username, username.count)
+		write(sock!, username, username.count)
 		let registration = UnsafeMutablePointer<UInt8>.allocate(capacity: 2)
-		let _ = read(sock, registration, 1)
+		let _ = read(sock!, registration, 1)
 		if String(cString: registration) == "N" {
-			close(sock)
+			close(sock!)
 			return
 		}
-		msgThread = MsgThread(username: username, sock: sock, handler: self)
+		msgThread = MsgThread(username: username, sock: sock!, handler: self)
 	}
 
-	func send(_ msg: String) {
-		write(sock, msg, msg.count)
+	public func send(_ msg: String) {
+		write(sock!, msg, msg.count)
 	}
 
-	func closeClient() {
-		msgThread.running = false
-		close(sock)
+	public func closeClient() {
+		msgThread!.running = false
+		close(sock!)
 	}
 
 }

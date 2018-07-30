@@ -21,11 +21,11 @@
 
 import Foundation
 
-protocol SockTalkClient : MessageHandler {
+public protocol SockTalkClient : MessageHandler {
 
-	var username: String { get set }
-	var sock: Int32 { get set }
-	var msgThread: MsgThread { get set }
+	var username: String? { get set }
+	var sock: Int32? { get set }
+	var msgThread: MsgThread? { get set }
 
 	func initialize(port: Int, host: String, username: String)
 

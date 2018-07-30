@@ -24,7 +24,32 @@
 		716DA120210E59740053342F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 716DA11F210E59740053342F /* Credits.rtf */; };
 		716DA122210E5A170053342F /* SockTalk_Lib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 716DA0ED210C7B230053342F /* SockTalk_Lib.framework */; };
 		716DA124210E5B160053342F /* SockTalkClientExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716DA123210E5B160053342F /* SockTalkClientExt.swift */; };
+		716DA126210F5ABB0053342F /* SockTalk_Lib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 716DA0ED210C7B230053342F /* SockTalk_Lib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		716DA127210F5ABB0053342F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 716DA0E4210C7B230053342F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 716DA0EC210C7B230053342F;
+			remoteInfo = "SockTalk Lib";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		716DA129210F5ABB0053342F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				716DA126210F5ABB0053342F /* SockTalk_Lib.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		716DA0ED210C7B230053342F /* SockTalk_Lib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SockTalk_Lib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -175,10 +200,12 @@
 				716DA10B210E566F0053342F /* Sources */,
 				716DA10C210E566F0053342F /* Frameworks */,
 				716DA10D210E566F0053342F /* Resources */,
+				716DA129210F5ABB0053342F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				716DA128210F5ABB0053342F /* PBXTargetDependency */,
 			);
 			name = SockTalk;
 			productName = SockTalk;
@@ -271,6 +298,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		716DA128210F5ABB0053342F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 716DA0EC210C7B230053342F /* SockTalk Lib */;
+			targetProxy = 716DA127210F5ABB0053342F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		716DA117210E56720053342F /* Main.storyboard */ = {
@@ -461,11 +496,16 @@
 		716DA11D210E56720053342F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SockTalk/SockTalk.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = T42F23M422;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = SockTalk/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -480,11 +520,16 @@
 		716DA11E210E56720053342F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SockTalk/SockTalk.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = T42F23M422;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = SockTalk/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

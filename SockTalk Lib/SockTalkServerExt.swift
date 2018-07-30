@@ -21,11 +21,11 @@
 
 import Foundation
 
-extension SockTalkServer {
+public extension SockTalkServer {
 
-	mutating func initialize(port: Int) {
+	public func initialize(port: Int) {
 		serverSock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)
-		if serverSock < 0 {
+		if serverSock! < 0 {
 			return
 		}
 
@@ -41,28 +41,40 @@ extension SockTalkServer {
 			ai_addr: nil,
 			ai_next: nil)
 		var servinfo: UnsafeMutablePointer<addrinfo>?
-		getaddrinfo(nil, "\(serverPort)", &hints, &servinfo)
-		if bind(serverSock, servinfo!.pointee.ai_addr, servinfo!.pointee.ai_addrlen) < 0 {
+		getaddrinfo(nil, "\(serverPort!)", &hints, &servinfo)
+		if bind(serverSock!, servinfo!.pointee.ai_addr, servinfo!.pointee.ai_addrlen) < 0 {
 			return
 		}
 
 		var opt = 1
-		setsockopt(serverSock, SOL_SOCKET, SO_REUSEADDR, &opt, socklen_t(Int.bitWidth / UInt8.bitWidth))
+		setsockopt(serverSock!, SOL_SOCKET, SO_REUSEADDR, &opt, socklen_t(Int.bitWidth / UInt8.bitWidth))
 
-		if listen(serverSock, 5) < 0 {
+		if listen(serverSock!, 5) < 0 {
 			return
 		}
 
-		acceptThread = AcceptThread(server: self, sock: serverSock)
+		acceptThread = AcceptThread(server: self, sock: serverSock!)
 	}
 
-	mutating func addHandler(_ handler: SockTalkClientHandler) {
-		handlers.append(handler)
+	public func addHandler(_ handler: SockTalkClientHandler) {
+		handlers!.append(handler)
 		broadcast("\(handler.username) connected", src: "global")
 	}
 
-	func usernameTaken(_ username: String) -> Bool {
-		for handler in handlers {
+	public func checkHandlers() {
+		var i = 0
+		while i < handlers!.count {
+			if !handlers![i].isRunning() {
+				handlers!.remove(at: i)
+			} else {
+				i += 1
+			}
+		}
+	}
+
+	public func usernameTaken(_ username: String) -> Bool {
+		checkHandlers()
+		for handler in handlers! {
 			if handler.username == username {
 				return true
 			}
@@ -70,8 +82,8 @@ extension SockTalkServer {
 		return false
 	}
 
-	func broadcast(_ msg: String, src: String) {
-		for handler in handlers {
+	public func broadcast(_ msg: String, src: String) {
+		for handler in handlers! {
 			if handler.username != src {
 				handler.send(msg)
 			}
@@ -85,8 +97,8 @@ extension SockTalkServer {
 		}
 	}
 
-	func sendTo(_ msg: String, recipient: String) {
-		for handler in handlers {
+	public func sendTo(_ msg: String, recipient: String) {
+		for handler in handlers! {
 			if handler.username == recipient {
 				handler.send(msg)
 				break
@@ -94,10 +106,10 @@ extension SockTalkServer {
 		}
 	}
 
-	func closeServer() {
-		close(serverSock)
-		acceptThread.running = false
-		for handler in handlers {
+	public func closeServer() {
+		close(serverSock!)
+		acceptThread!.running = false
+		for handler in handlers! {
 			handler.stop()
 		}
 	}

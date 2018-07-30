@@ -21,14 +21,14 @@
 
 import Foundation
 
-protocol SockTalkServer : MessageHandler {
+public protocol SockTalkServer : MessageHandler {
 
-	var serverSock: Int32 { get set }
-	var serverPort: Int { get set }
+	var serverSock: Int32? { get set }
+	var serverPort: Int? { get set }
 
-	var acceptThread: AcceptThread { get set }
+	var acceptThread: AcceptThread? { get set }
 
-	var handlers: [SockTalkClientHandler] { get set }
+	var handlers: [SockTalkClientHandler]? { get set }
 
 	func initialize(port: Int)
 

@@ -21,7 +21,7 @@
 
 import Foundation
 
-class AcceptThread {
+open class AcceptThread {
 
 	var server: SockTalkServer
 	var sock: Int32

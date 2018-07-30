@@ -21,7 +21,7 @@
 
 import Foundation
 
-class SockTalkClientHandler {
+open class SockTalkClientHandler {
 
 	var msgThread: MsgThread?
 	var sock: Int32
@@ -41,16 +41,16 @@ class SockTalkClientHandler {
 		}
 	}
 
-	func send(_ msg: String) {
+	open func send(_ msg: String) {
 		write(sock, msg, msg.count)
 	}
 
-	func stop() {
+	open func stop() {
 		msgThread?.running = false
 		close(sock)
 	}
 
-	func isRunning() -> Bool {
+	open func isRunning() -> Bool {
 		return msgThread?.running ?? false
 	}
 	

@@ -21,13 +21,13 @@
 
 import Foundation
 
-enum MessageType {
+public enum MessageType {
 	case INFO
 	case MESSAGE
 	case ERROR
 }
 
-protocol MessageHandler {
+public protocol MessageHandler : class {
 
 	func handleMessage(_ msg: String, type: MessageType)
 
