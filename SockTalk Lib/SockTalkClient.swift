@@ -24,6 +24,10 @@ import Foundation
 protocol SockTalkClient : MessageHandler {
 
 	var username: String { get set }
+	var sock: Int32 { get set }
+	var msgThread: MsgThread { get set }
+
+	func initialize(port: Int, host: String, username: String)
 
 	func send(_ msg: String)
 	func closeClient()
