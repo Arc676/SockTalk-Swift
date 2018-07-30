@@ -54,6 +54,8 @@ public extension SockTalkServer {
 		}
 
 		acceptThread = AcceptThread(server: self, sock: serverSock!)
+		handlers = [SockTalkClientHandler]()
+		handleMessage("Hosting on port \(serverPort!)", type: .INFO)
 	}
 
 	public func addHandler(_ handler: SockTalkClientHandler) {

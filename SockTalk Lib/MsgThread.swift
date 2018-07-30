@@ -37,7 +37,7 @@ open class MsgThread {
 		self.handler = handler
 		running = true
 
-		let _ = Thread(target: self, selector: #selector(run), object: nil)
+		Thread(target: self, selector: #selector(run), object: nil).start()
 	}
 
 	@objc func run() {
