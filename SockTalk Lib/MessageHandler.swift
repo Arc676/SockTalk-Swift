@@ -29,6 +29,6 @@ public enum MessageType {
 
 public protocol MessageHandler : class {
 
-	func handleMessage(_ msg: String, type: MessageType)
+	func handleMessage(_ msg: String, type: MessageType, src: String)
 
 }

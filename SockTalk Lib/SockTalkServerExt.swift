@@ -55,12 +55,12 @@ public extension SockTalkServer {
 
 		acceptThread = AcceptThread(server: self, sock: serverSock!)
 		handlers = [SockTalkClientHandler]()
-		handleMessage("Hosting on port \(serverPort!)", type: .INFO)
+		handleMessage("Hosting on port \(serverPort!)", type: .INFO, src: "Info")
 	}
 
 	public func addHandler(_ handler: SockTalkClientHandler) {
 		handlers!.append(handler)
-		broadcast("\(handler.username) connected", src: "global")
+		handleMessage("\(handler.username) connected", type: .INFO, src: "Info")
 	}
 
 	public func checkHandlers() {
@@ -76,6 +76,9 @@ public extension SockTalkServer {
 
 	public func usernameTaken(_ username: String) -> Bool {
 		checkHandlers()
+		if username == "Server" || username == "Error" || username == "Info" {
+			return true
+		}
 		for handler in handlers! {
 			if handler.username == username {
 				return true
@@ -85,16 +88,10 @@ public extension SockTalkServer {
 	}
 
 	public func broadcast(_ msg: String, src: String) {
+		checkHandlers()
 		for handler in handlers! {
 			if handler.username != src {
-				handler.send(msg)
-			}
-		}
-		if src != "server" {
-			if src == "global" {
-				handleMessage(msg, type: .INFO)
-			} else {
-				handleMessage(msg, type: .MESSAGE)
+				handler.send("\(src): \(msg)")
 			}
 		}
 	}
@@ -114,7 +111,7 @@ public extension SockTalkServer {
 		for handler in handlers! {
 			handler.stop()
 		}
-		handleMessage("Server closed", type: .INFO)
+		handleMessage("Server closed", type: .INFO, src: "Info")
 	}
 
 }

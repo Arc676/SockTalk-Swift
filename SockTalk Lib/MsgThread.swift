@@ -45,14 +45,14 @@ open class MsgThread {
 		while running {
 			let bytes = read(sock, buffer, MsgThread.BUF_SIZE)
 			if bytes < 0 {
-				handler.handleMessage("Failed to read", type: .ERROR)
+				handler.handleMessage("Failed to read", type: .ERROR, src: "Error")
 				running = false
 			} else if bytes == 0 {
-				handler.handleMessage("\(username) disconnected", type: .INFO)
+				handler.handleMessage("\(username) disconnected", type: .INFO, src: "Info")
 				running = false
 			} else {
 				let msg = String(cString: buffer)
-				handler.handleMessage(msg, type: .MESSAGE)
+				handler.handleMessage(msg, type: .MESSAGE, src: username)
 			}
 			buffer.assign(repeating: 0, count: MsgThread.BUF_SIZE)
 		}

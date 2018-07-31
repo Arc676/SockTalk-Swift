@@ -79,10 +79,13 @@ class ViewController: NSViewController, SockTalkServer, SockTalkClient {
 	var newMsgs: [String] = []
 	
 	@IBAction func sendMessage(_ sender: Any) {
+		if state == DISCONNECTED {
+			return
+		}
 		let msg = msgField.stringValue
+		transcript.string.append("\n\(username!): \(msg)")
 		if state == HOSTING {
-			transcript.string.append("\nServer: \(msg)")
-			broadcast("Server: \(msg)", src: "server")
+			broadcast(msg, src: "Server")
 		} else if state == CONNECTED {
 			send(msg)
 		}
@@ -98,12 +101,16 @@ class ViewController: NSViewController, SockTalkServer, SockTalkClient {
 		state = DISCONNECTED
 	}
 
-	func handleMessage(_ msg: String, type: MessageType) {
-		DispatchQueue.main.async {
-			self.transcript.string.append("\n\(msg)")
-		}
+	func handleMessage(_ msg: String, type: MessageType, src: String) {
 		if state == HOSTING {
-			broadcast(msg, src: "server")
+			DispatchQueue.main.async {
+				self.transcript.string.append("\n\(src): \(msg)")
+			}
+			broadcast(msg, src: src)
+		} else {
+			DispatchQueue.main.async {
+				self.transcript.string.append("\n\(msg)")
+			}
 		}
 	}
 

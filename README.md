@@ -4,6 +4,10 @@ The [SockTalk library](https://github.com/Arc676/SockTalk) is a C++ library for 
 
 The project also includes a second target which is just such a program.
 
+## SockTalk protocol
+
+See the repository of the C++ library for a more detailed description of the SockTalk protocol.
+
 ## Licensing
 
 Project available under GPLv3. See `LICENSE` for full license text.
