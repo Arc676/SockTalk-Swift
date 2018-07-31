@@ -20,24 +20,91 @@
 //See README and LICENSE for more details
 
 import Cocoa
+import SockTalk_Lib
 
-class ViewController: NSViewController {
+class ViewController: NSViewController, SockTalkServer, SockTalkClient {
+
+	// MARK: - Application state
+
+	let HOSTING			= 0b10
+	let CONNECTED		= 0b01
+	let DISCONNECTED	= 0b00
+	var state = 0 // start disconnected
+
+	// MARK: - Server properties
+
+	var serverSock: Int32?
+	var serverPort: Int?
+	var acceptThread: AcceptThread?
+	var handlers: [SockTalkClientHandler]?
+
+	// MARK: - Server UI
 
 	@IBOutlet weak var servPortField: NSTextField!
 
 	@IBAction func startHosting(_ sender: Any) {
+		username = "Server"
+		let port = servPortField.integerValue
+		// initialize server
+		initialize(port: port)
+		state = HOSTING
 	}
+
+	// MARK: - Client properties
+
+	var username: String?
+	var sock: Int32?
+	var msgThread: MsgThread?
+
+	// MARK: - Client UI
 
 	@IBOutlet weak var clientIPField: NSTextField!
 	@IBOutlet weak var clientPortField: NSTextField!
-
+	@IBOutlet weak var clientUsernameField: NSTextField!
+	
 	@IBAction func joinChat(_ sender: Any) {
+		let host = clientIPField.stringValue
+		let port = clientPortField.integerValue
+		let username = clientUsernameField.stringValue
+		// initialize client
+		initialize(port: port, host: host, username: username)
+		state = CONNECTED
 	}
+
+	// MARK: - Common UI code
 
 	@IBOutlet var transcript: NSTextView!
 	@IBOutlet weak var msgField: NSTextField!
+
+	var newMsgs: [String] = []
 	
 	@IBAction func sendMessage(_ sender: Any) {
+		let msg = msgField.stringValue
+		if state == HOSTING {
+			transcript.string.append("\nServer: \(msg)")
+			broadcast("Server: \(msg)", src: "server")
+		} else if state == CONNECTED {
+			send(msg)
+		}
+		msgField.stringValue = ""
 	}
 	
+	@IBAction func disconnect(_ sender: Any) {
+		if state == HOSTING {
+			closeServer()
+		} else if state == CONNECTED {
+			closeClient()
+		}
+		state = DISCONNECTED
+	}
+
+	func handleMessage(_ msg: String, type: MessageType) {
+		DispatchQueue.main.async {
+			self.transcript.string.append("\n\(msg)")
+		}
+		if state == HOSTING {
+			broadcast(msg, src: "server")
+		}
+	}
+
 }

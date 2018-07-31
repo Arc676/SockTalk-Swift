@@ -114,6 +114,7 @@ public extension SockTalkServer {
 		for handler in handlers! {
 			handler.stop()
 		}
+		handleMessage("Server closed", type: .INFO)
 	}
 
 }

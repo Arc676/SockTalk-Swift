@@ -42,7 +42,7 @@ open class AcceptThread {
 				server.handleMessage("Failed to accept", type: .ERROR)
 				running = false
 			} else {
-				let handler = SockTalkClientHandler(sock: sock, server: server)
+				let handler = SockTalkClientHandler(sock: clientSock, server: server)
 				if handler.isRunning() {
 					server.addHandler(handler)
 				}
