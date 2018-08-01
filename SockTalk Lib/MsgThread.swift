@@ -28,13 +28,15 @@ open class MsgThread {
 	var username: String
 	var sock: Int32
 	var handler: MessageHandler
+	var server: SockTalkServer?
 
 	var running: Bool
 
-	init(username: String, sock: Int32, handler: MessageHandler) {
-		self.username = username
+	init(sock: Int32, handler: MessageHandler, server: SockTalkServer?) {
+		self.username = ""
 		self.sock = sock
 		self.handler = handler
+		self.server = server
 		running = true
 
 		Thread(target: self, selector: #selector(run), object: nil).start()
@@ -42,6 +44,23 @@ open class MsgThread {
 
 	@objc func run() {
 		let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: MsgThread.BUF_SIZE)
+		if server != nil {
+			let user = UnsafeMutablePointer<UInt8>.allocate(capacity: 255)
+			read(sock, user, 255)
+			let username = String(cString: user)
+			user.deallocate()
+			let success = !server!.usernameTaken(username)
+			let _ = MessageHandlerC.sendMessage(
+				sock: sock,
+				msg: (success ? "Y" : "N")
+			)
+			if success {
+				handler.handleMessage("\(username) connected", type: .INFO, src: "Info")
+				self.username = username
+			} else {
+				running = false
+			}
+		}
 		while running {
 			let bytes = read(sock, buffer, MsgThread.BUF_SIZE)
 			if bytes < 0 {

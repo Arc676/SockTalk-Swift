@@ -43,9 +43,7 @@ open class AcceptThread {
 				running = false
 			} else {
 				let handler = SockTalkClientHandler(sock: clientSock, server: server)
-				if handler.isRunning() {
-					server.addHandler(handler)
-				}
+				server.addHandler(handler)
 			}
 		}
 		Thread.exit()

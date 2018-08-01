@@ -25,6 +25,8 @@
 		716DA122210E5A170053342F /* SockTalk_Lib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 716DA0ED210C7B230053342F /* SockTalk_Lib.framework */; };
 		716DA124210E5B160053342F /* SockTalkClientExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716DA123210E5B160053342F /* SockTalkClientExt.swift */; };
 		716DA126210F5ABB0053342F /* SockTalk_Lib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 716DA0ED210C7B230053342F /* SockTalk_Lib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		716DA12D211205170053342F /* MessageHandlerExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716DA12C211205170053342F /* MessageHandlerExt.swift */; };
+		716DA12F211206810053342F /* MessageHandlerC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716DA12E211206810053342F /* MessageHandlerC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +75,8 @@
 		716DA11B210E56720053342F /* SockTalk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SockTalk.entitlements; sourceTree = "<group>"; };
 		716DA11F210E59740053342F /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		716DA123210E5B160053342F /* SockTalkClientExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SockTalkClientExt.swift; sourceTree = "<group>"; };
+		716DA12C211205170053342F /* MessageHandlerExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageHandlerExt.swift; sourceTree = "<group>"; };
+		716DA12E211206810053342F /* MessageHandlerC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageHandlerC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +124,8 @@
 				716DA0F0210C7B230053342F /* SockTalk.h */,
 				716DA0F1210C7B230053342F /* Info.plist */,
 				716DA0FD210C7FE00053342F /* MessageHandler.swift */,
+				716DA12C211205170053342F /* MessageHandlerExt.swift */,
+				716DA12E211206810053342F /* MessageHandlerC.swift */,
 				716DA0FF210C99BB0053342F /* SockTalkServer.swift */,
 				716DA109210DBC480053342F /* SockTalkServerExt.swift */,
 				716DA103210C9AE40053342F /* SockTalkClient.swift */,
@@ -285,10 +291,12 @@
 				716DA106210C9B450053342F /* AcceptThread.swift in Sources */,
 				716DA108210C9B4E0053342F /* MsgThread.swift in Sources */,
 				716DA100210C99BB0053342F /* SockTalkServer.swift in Sources */,
+				716DA12D211205170053342F /* MessageHandlerExt.swift in Sources */,
 				716DA102210C9A4E0053342F /* SockTalkClientHandler.swift in Sources */,
 				716DA104210C9AE40053342F /* SockTalkClient.swift in Sources */,
 				716DA10A210DBC480053342F /* SockTalkServerExt.swift in Sources */,
 				716DA124210E5B160053342F /* SockTalkClientExt.swift in Sources */,
+				716DA12F211206810053342F /* MessageHandlerC.swift in Sources */,
 				716DA0FE210C7FE00053342F /* MessageHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

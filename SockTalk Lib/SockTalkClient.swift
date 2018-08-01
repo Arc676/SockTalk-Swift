@@ -29,7 +29,7 @@ public protocol SockTalkClient : MessageHandler {
 
 	func initialize(port: Int, host: String, username: String)
 
-	func send(_ msg: String)
+	func send(_ msg: String) -> Int
 	func closeClient()
 
 }

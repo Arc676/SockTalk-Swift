@@ -51,12 +51,12 @@ public extension SockTalkClient {
 			return
 		}
 		registration.deallocate()
-		msgThread = MsgThread(username: username, sock: sock!, handler: self)
+		msgThread = MsgThread(sock: sock!, handler: self, server: nil)
 		handleMessage("Connected", type: .INFO, src: "Info")
 	}
 
-	public func send(_ msg: String) {
-		write(sock!, msg, msg.count)
+	public func send(_ msg: String) -> Int {
+		return MessageHandlerC.sendMessage(sock: sock!, msg: msg)
 	}
 
 	public func closeClient() {

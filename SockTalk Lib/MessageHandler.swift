@@ -29,6 +29,7 @@ public enum MessageType {
 
 public protocol MessageHandler : class {
 
+	static func sendMessage(sock: Int32, msg: String) -> Int
 	func handleMessage(_ msg: String, type: MessageType, src: String)
 
 }

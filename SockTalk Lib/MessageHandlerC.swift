@@ -1,8 +1,8 @@
 //
-//  ClientHandler.swift
-//  SockTalk
+//  MessageHandlerC.swift
+//  SockTalk Lib
 //
-//  Created by Alessandro Vinciguerra on 28/07/2018.
+//  Created by Alessandro Vinciguerra on 01/08/2018.
 //      <alesvinciguerra@gmail.com>
 //Copyright (C) 2018 Arc676/Alessandro Vinciguerra
 
@@ -21,31 +21,8 @@
 
 import Foundation
 
-open class SockTalkClientHandler {
+class MessageHandlerC : MessageHandler {
 
-	var msgThread: MsgThread?
-	var sock: Int32
+	func handleMessage(_ msg: String, type: MessageType, src: String) {}
 
-	init(sock: Int32, server: SockTalkServer) {
-		self.sock = sock
-		msgThread = MsgThread(sock: sock, handler: server, server: server)
-	}
-
-	open func send(_ msg: String) {
-		let _ = MessageHandlerC.sendMessage(sock: sock, msg: msg)
-	}
-
-	open func stop() {
-		msgThread?.running = false
-		close(sock)
-	}
-
-	open func isRunning() -> Bool {
-		return msgThread?.running ?? false
-	}
-
-	open func getUsername() -> String {
-		return msgThread!.username
-	}
-	
 }

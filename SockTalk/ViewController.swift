@@ -87,7 +87,7 @@ class ViewController: NSViewController, SockTalkServer, SockTalkClient {
 		if state == HOSTING {
 			broadcast(msg, src: "Server")
 		} else if state == CONNECTED {
-			send(msg)
+			let _ = send(msg)
 		}
 		msgField.stringValue = ""
 	}
@@ -106,7 +106,9 @@ class ViewController: NSViewController, SockTalkServer, SockTalkClient {
 			DispatchQueue.main.async {
 				self.transcript.string.append("\n\(src): \(msg)")
 			}
-			broadcast(msg, src: src)
+			if src != "Error" && src != "Notice" {
+				broadcast(msg, src: src)
+			}
 		} else {
 			DispatchQueue.main.async {
 				self.transcript.string.append("\n\(msg)")

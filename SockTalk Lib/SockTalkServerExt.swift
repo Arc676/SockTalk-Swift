@@ -60,7 +60,7 @@ public extension SockTalkServer {
 
 	public func addHandler(_ handler: SockTalkClientHandler) {
 		handlers!.append(handler)
-		handleMessage("\(handler.username) connected", type: .INFO, src: "Info")
+		handleMessage("Incoming connection...", type: .INFO, src: "Notice")
 	}
 
 	public func checkHandlers() {
@@ -80,7 +80,7 @@ public extension SockTalkServer {
 			return true
 		}
 		for handler in handlers! {
-			if handler.username == username {
+			if handler.getUsername() == username {
 				return true
 			}
 		}
@@ -90,7 +90,7 @@ public extension SockTalkServer {
 	public func broadcast(_ msg: String, src: String) {
 		checkHandlers()
 		for handler in handlers! {
-			if handler.username != src {
+			if handler.getUsername() != src {
 				handler.send("\(src): \(msg)")
 			}
 		}
@@ -98,7 +98,7 @@ public extension SockTalkServer {
 
 	public func sendTo(_ msg: String, recipient: String) {
 		for handler in handlers! {
-			if handler.username == recipient {
+			if handler.getUsername() == recipient {
 				handler.send(msg)
 				break
 			}
