@@ -32,6 +32,14 @@ open class MsgThread {
 
 	var running: Bool
 
+	/**
+	Construct a new MsgThread
+
+	- parameters:
+		- sock: Socket from which to read messages
+		- handler: Message handler for incoming messages
+		- server: Server object for registration, if necessary
+	*/
 	init(sock: Int32, handler: MessageHandler, server: SockTalkServer?) {
 		self.username = ""
 		self.sock = sock

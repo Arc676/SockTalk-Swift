@@ -27,9 +27,30 @@ public protocol SockTalkClient : MessageHandler {
 	var sock: Int32? { get set }
 	var msgThread: MsgThread? { get set }
 
+	/**
+	Initializes the client
+
+	- parameters:
+		- port: Port on which chat is being hosten
+		- host: Address of host
+		- username: Desired username to use during chat
+	*/
 	func initialize(port: Int, host: String, username: String)
 
+	/**
+	Utility method for sending a message
+
+	- parameters:
+		- msg: Message to send
+
+	- returns:
+	Number of bytes written to the socket
+	*/
 	func send(_ msg: String) -> Int
+
+	/**
+	Terminates the connection
+	*/
 	func closeClient()
 
 }

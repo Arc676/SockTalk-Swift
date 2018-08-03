@@ -26,20 +26,42 @@ open class SockTalkClientHandler {
 	var msgThread: MsgThread?
 	var sock: Int32
 
+	/**
+	Construct a new client handler
+
+	- parameters:
+		- sock: Socket on which to listen for messages
+		- server: Server object for registration
+	*/
 	init(sock: Int32, server: SockTalkServer) {
 		self.sock = sock
 		msgThread = MsgThread(sock: sock, handler: server, server: server)
 	}
 
+	/**
+	Utility method for sending a message to the connected client
+
+	- parameters:
+		- msg: Message to send
+	*/
 	open func send(_ msg: String) {
 		let _ = MessageHandlerC.sendMessage(sock: sock, msg: msg)
 	}
 
+	/**
+	Terminates the connection to the client
+	*/
 	open func stop() {
 		msgThread?.running = false
 		close(sock)
 	}
 
+	/**
+	Determine whether the handler is still live
+
+	- returns:
+	Whether the message thread, if present, is still running
+	*/
 	open func isRunning() -> Bool {
 		return msgThread?.running ?? false
 	}

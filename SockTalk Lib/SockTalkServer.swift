@@ -30,15 +30,60 @@ public protocol SockTalkServer : MessageHandler {
 
 	var handlers: [SockTalkClientHandler]? { get set }
 
+	/**
+	Initialize server
+
+	- parameters:
+		- port: Port on which to host chat
+	*/
 	func initialize(port: Int)
 
+	/**
+	Adds a new client handler
+
+	- parameters:
+		- handler: New client handler
+	*/
 	func addHandler(_ handler: SockTalkClientHandler)
+
+	/**
+	Checks handlers for any dead connections and drops any corresponding
+	to clients that have disconnected
+	*/
 	func checkHandlers()
+
+	/**
+	Shuts down the server
+	*/
 	func closeServer()
 
+	/**
+	Determines whether a username is invalid
+
+	- parameters:
+		- username: Username to check
+
+	- returns:
+	Whether the username is reserved or taken by another client
+	*/
 	func usernameTaken(_ username: String) -> Bool
 
+	/**
+	Broadcasts a message to all connected clients
+
+	- parameters:
+		- msg: Message to send
+		- src: Original sender of message
+	*/
 	func broadcast(_ msg: String, src: String)
+
+	/**
+	Send a message to a single client
+
+	- parameters:
+		- msg: Message to send
+		- recipient: Username of client to which to send the message
+	*/
 	func sendTo(_ msg: String, recipient: String)
 	
 }

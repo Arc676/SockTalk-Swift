@@ -27,6 +27,13 @@ open class AcceptThread {
 	var sock: Int32
 	var running: Bool
 
+	/**
+	Construct a new AcceptThread
+
+	- parameters:
+		- server: Server for which to accept clients
+		- sock: Socket on which to listen
+	*/
 	init(server: SockTalkServer, sock: Int32) {
 		self.server = server
 		self.sock = sock

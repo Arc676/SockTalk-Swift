@@ -29,7 +29,26 @@ public enum MessageType {
 
 public protocol MessageHandler : class {
 
+	/**
+	Sends a message via a socket
+
+	- parameters:
+		- sock: Socket from which to send message
+		- msg: Message to sent
+
+	- returns:
+	The number of bytes written to the socket
+	*/
 	static func sendMessage(sock: Int32, msg: String) -> Int
+
+	/**
+	Handle an incoming message
+
+	- parameters:
+		- msg: Incoming message
+		- type: Message type
+		- src: Source of message
+	*/
 	func handleMessage(_ msg: String, type: MessageType, src: String)
 
 }
