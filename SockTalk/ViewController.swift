@@ -32,6 +32,9 @@ class ViewController: NSViewController, SockTalkServer, SockTalkClient {
 	let DISCONNECTED	= 0b00
 	var state = 0 // start disconnected
 
+	// MARK: - SSL
+	var ssl: SSLWrapper?
+
 	// MARK: - Server properties
 
 	var serverSock: Int32?
@@ -47,7 +50,7 @@ class ViewController: NSViewController, SockTalkServer, SockTalkClient {
 		username = "Server"
 		let port = servPortField.integerValue
 		// initialize server
-		initialize(port: port)
+		initialize(port: port, cert: nil, key: nil)
 		state = HOSTING
 	}
 
@@ -68,7 +71,7 @@ class ViewController: NSViewController, SockTalkServer, SockTalkClient {
 		let port = clientPortField.integerValue
 		let username = clientUsernameField.stringValue
 		// initialize client
-		initialize(port: port, host: host, username: username)
+		initialize(port: port, host: host, username: username, cert: nil, key: nil)
 		state = CONNECTED
 	}
 

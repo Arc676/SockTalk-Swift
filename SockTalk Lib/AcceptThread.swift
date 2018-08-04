@@ -138,6 +138,7 @@ open class AcceptThread {
 	var server: SockTalkServer
 	var sock: Int32
 	var running: Bool
+	var ssl: SSLWrapper?
 
 	/**
 	Construct a new AcceptThread
@@ -145,10 +146,12 @@ open class AcceptThread {
 	- parameters:
 		- server: Server for which to accept clients
 		- sock: Socket on which to listen
+		- ssl: SSLWrapper to use for incoming connections, if necessary
 	*/
-	init(server: SockTalkServer, sock: Int32) {
+	init(server: SockTalkServer, sock: Int32, ssl: SSLWrapper?) {
 		self.server = server
 		self.sock = sock
+		self.ssl = ssl
 		running = true
 
 		Thread(target: self, selector: #selector(run), object: nil).start()
@@ -161,7 +164,16 @@ open class AcceptThread {
 				server.handleMessage("Failed to accept", type: .ERROR, src: "Error")
 				running = false
 			} else {
-				let handler = SockTalkClientHandler(sock: clientSock, server: server)
+				var cSSL: SSLWrapper? = nil
+				if ssl != nil {
+					cSSL = ssl?.createClientSSL(clientSock)
+					if cSSL == nil {
+						server.handleMessage("Failed to accept with SSL", type: .ERROR, src: "Error")
+						running = false
+						break
+					}
+				}
+				let handler = SockTalkClientHandler(sock: clientSock, server: server, ssl: cSSL)
 				server.addHandler(handler)
 			}
 		}

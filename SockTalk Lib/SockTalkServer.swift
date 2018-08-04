@@ -147,8 +147,10 @@ public protocol SockTalkServer : MessageHandler {
 
 	- parameters:
 		- port: Port on which to host chat
+		- cert: Location of file containing SSL certificate, if needed
+		- key: Location of private key file, if needed
 	*/
-	func initialize(port: Int)
+	func initialize(port: Int, cert: URL?, key: URL?)
 
 	/**
 	Adds a new client handler

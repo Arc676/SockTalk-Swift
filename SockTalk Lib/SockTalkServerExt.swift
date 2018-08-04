@@ -135,7 +135,13 @@ import Foundation
 
 public extension SockTalkServer {
 
-	public func initialize(port: Int) {
+	public func initialize(port: Int, cert: URL?, key: URL?) {
+		if cert == nil || key == nil {
+			ssl = nil
+		} else {
+			ssl = SSLWrapper()
+			ssl?.initializeSSL(cert!.absoluteString, key: key!.absoluteString, isServer: true)
+		}
 		serverSock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)
 		if serverSock! < 0 {
 			return
@@ -166,7 +172,7 @@ public extension SockTalkServer {
 			return
 		}
 
-		acceptThread = AcceptThread(server: self, sock: serverSock!)
+		acceptThread = AcceptThread(server: self, sock: serverSock!, ssl: ssl)
 		handlers = [SockTalkClientHandler]()
 		handleMessage("Hosting on port \(serverPort!)", type: .INFO, src: "Info")
 	}

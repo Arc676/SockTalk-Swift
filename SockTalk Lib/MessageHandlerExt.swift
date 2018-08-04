@@ -135,8 +135,12 @@ import Foundation
 
 public extension MessageHandler {
 
-	public static func sendMessage(sock: Int32, msg: String) -> Int {
-		return write(sock, msg, msg.count)
+	public static func sendMessage(ssl:SSLWrapper?, sock: Int32, msg: String) -> Int {
+		if ssl == nil {
+			return write(sock, msg, msg.count)
+		} else {
+			return Int(ssl!.sendSSLMessage(msg))
+		}
 	}
 	
 }

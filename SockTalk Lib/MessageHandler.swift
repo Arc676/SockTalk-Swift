@@ -141,17 +141,20 @@ public enum MessageType {
 
 public protocol MessageHandler : class {
 
+	var ssl: SSLWrapper? { get set }
+
 	/**
 	Sends a message via a socket
 
 	- parameters:
-		- sock: Socket from which to send message
+		- ssl: SSLWrapper to use, if any
+		- sock: Socket from which to send message if SSL is not being used
 		- msg: Message to sent
 
 	- returns:
 	The number of bytes written to the socket
 	*/
-	static func sendMessage(sock: Int32, msg: String) -> Int
+	static func sendMessage(ssl: SSLWrapper?, sock: Int32, msg: String) -> Int
 
 	/**
 	Handle an incoming message

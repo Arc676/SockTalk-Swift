@@ -134,6 +134,8 @@
 import Foundation
 
 class MessageHandlerC : MessageHandler {
+	
+	var ssl: SSLWrapper?
 
 	func handleMessage(_ msg: String, type: MessageType, src: String) {}
 

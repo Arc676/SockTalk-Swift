@@ -146,8 +146,10 @@ public protocol SockTalkClient : MessageHandler {
 		- port: Port on which chat is being hosten
 		- host: Address of host
 		- username: Desired username to use during chat
+		- cert: Location of file containing SSL certificate, if needed
+		- key: Location of private key file, if needed
 	*/
-	func initialize(port: Int, host: String, username: String)
+	func initialize(port: Int, host: String, username: String, cert: URL?, key: URL?)
 
 	/**
 	Utility method for sending a message

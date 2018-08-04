@@ -133,6 +133,11 @@
 
 #import "SSLWrapper.h"
 
+#define SUCCESS 0
+#define SSL_CERT_FAILED 6
+#define SSL_KEY_FAILED 7
+#define SSL_CONN_FAILED 9
+
 const char* cStr(NSString* str) {
 	return [str cStringUsingEncoding:NSUTF8StringEncoding];
 }
@@ -150,12 +155,12 @@ const char* cStr(NSString* str) {
 	}
 	SSL_CTX_set_options(_sslctx, SSL_OP_SINGLE_DH_USE);
 	if (SSL_CTX_use_certificate_file(_sslctx, cStr(cert), SSL_FILETYPE_PEM) != 1) {
-		return 1;
+		return SSL_CERT_FAILED;
 	}
 	if (SSL_CTX_use_PrivateKey_file(_sslctx, cStr(priv), SSL_FILETYPE_PEM) != 1) {
-		return 1;
+		return SSL_KEY_FAILED;
 	}
-	return 0;
+	return SUCCESS;
 }
 
 - (void)destroySSL {
@@ -167,6 +172,36 @@ const char* cStr(NSString* str) {
 - (void)shutdownSSL:(SSL *)ssl {
 	SSL_shutdown(ssl);
 	SSL_free(ssl);
+}
+
+- (int)setupSSL:(int)sock {
+	_ssl = SSL_new(_sslctx);
+	SSL_set_fd(_ssl, sock);
+	if (SSL_connect(_ssl) <= 0) {
+//		ERR_print_errors_fp(stderr);
+		[self shutdownSSL:_ssl];
+		return SSL_CONN_FAILED;
+	}
+	return SUCCESS;
+}
+
+- (SSLWrapper *)createClientSSL:(int)sock {
+	SSLWrapper* cSSL = [[SSLWrapper alloc] init];
+	cSSL.ssl = SSL_new(_sslctx);
+	SSL_set_fd(cSSL.ssl, sock);
+	if (SSL_accept(cSSL.ssl) <= 0) {
+		[self shutdownSSL:cSSL.ssl];
+		return nil;
+	}
+	return cSSL;
+}
+
+- (int)readSSLMessage:(void *)buf len:(int)len {
+	return SSL_read(_ssl, buf, len);
+}
+
+- (int)sendSSLMessage:(NSString *)msg {
+	return SSL_write(_ssl, cStr(msg), (int)msg.length);
 }
 
 @end

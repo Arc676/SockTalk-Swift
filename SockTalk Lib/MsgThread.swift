@@ -139,6 +139,7 @@ open class MsgThread {
 
 	var username: String
 	var sock: Int32
+	var ssl: SSLWrapper?
 	var handler: MessageHandler
 	var server: SockTalkServer?
 
@@ -149,12 +150,14 @@ open class MsgThread {
 
 	- parameters:
 		- sock: Socket from which to read messages
+		- ssl: SSLWrapper to use, if any
 		- handler: Message handler for incoming messages
 		- server: Server object for registration, if necessary
 	*/
-	init(sock: Int32, handler: MessageHandler, server: SockTalkServer?) {
+	init(sock: Int32, ssl: SSLWrapper?, handler: MessageHandler, server: SockTalkServer?) {
 		self.username = ""
 		self.sock = sock
+		self.ssl = ssl
 		self.handler = handler
 		self.server = server
 		running = true
@@ -166,11 +169,16 @@ open class MsgThread {
 		let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: MsgThread.BUF_SIZE)
 		if server != nil {
 			let user = UnsafeMutablePointer<UInt8>.allocate(capacity: 255)
-			read(sock, user, 255)
+			if ssl == nil {
+				read(sock, user, 255)
+			} else {
+				ssl?.readSSLMessage(user, len: 255)
+			}
 			let username = String(cString: user)
 			user.deallocate()
 			let success = !server!.usernameTaken(username)
 			let _ = MessageHandlerC.sendMessage(
+				ssl: ssl,
 				sock: sock,
 				msg: (success ? "Y" : "N")
 			)
@@ -182,7 +190,12 @@ open class MsgThread {
 			}
 		}
 		while running {
-			let bytes = read(sock, buffer, MsgThread.BUF_SIZE)
+			var bytes = 0
+			if ssl == nil {
+				bytes = read(sock, buffer, MsgThread.BUF_SIZE)
+			} else {
+				bytes = Int(ssl!.readSSLMessage(buffer, len: Int32(MsgThread.BUF_SIZE)))
+			}
 			if bytes < 0 {
 				handler.handleMessage("Failed to read", type: .ERROR, src: "Error")
 				running = false

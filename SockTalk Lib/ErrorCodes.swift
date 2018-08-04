@@ -1,8 +1,8 @@
 //
-//  ClientHandler.swift
-//  SockTalk
+//  ErrorCodes.swift
+//  SockTalk Lib
 //
-//  Created by Alessandro Vinciguerra on 28/07/2018.
+//  Created by Alessandro Vinciguerra on 04/08/2018.
 //      <alesvinciguerra@gmail.com>
 //Copyright (C) 2018 Arc676/Alessandro Vinciguerra
 
@@ -131,58 +131,44 @@
 * [including the GNU Public Licence.]
 */
 
-import Foundation
+public enum ErrorCode : Int {
+	case SUCCESS // 0
+	case CREATE_SOCKET_FAILED
+	case BIND_SOCKET_FAILED
+	case LISTEN_SOCKET_FAILED
+	case REGISTRATION_FAILED
+	case FAILED_TO_CONNECT
+	case FAILED_TO_GET_CERTIFICATE // 6
+	case FAILED_TO_GET_PRIVATE_KEY // 7
+	case SSL_ACCEPT_FAILED
+	case SSL_CONNECT_FAILED // 9
+}
 
-open class SockTalkClientHandler {
+open class ErrorCodes {
 
-	var msgThread: MsgThread?
-	var sock: Int32
-	var ssl: SSLWrapper?
-
-	/**
-	Construct a new client handler
-
-	- parameters:
-		- sock: Socket on which to listen for messages
-		- server: Server object for registration
-		- ssl: SSLWrapper to use, if needed
-	*/
-	init(sock: Int32, server: SockTalkServer, ssl: SSLWrapper?) {
-		self.sock = sock
-		self.ssl = ssl
-		msgThread = MsgThread(sock: sock, ssl: ssl, handler: server, server: server)
+	open static func errToString(_ err: ErrorCode) -> String {
+		switch (err) {
+		case .SUCCESS:
+			return "Success"
+		case .CREATE_SOCKET_FAILED:
+			return "Failed to create socket"
+		case .BIND_SOCKET_FAILED:
+			return "Failed to bind socket"
+		case .LISTEN_SOCKET_FAILED:
+			return "Failed to listen on socket"
+		case .REGISTRATION_FAILED:
+			return "Registration failed; probably username taken or invalid"
+		case .FAILED_TO_CONNECT:
+			return "Failed to connect to host"
+		case .FAILED_TO_GET_CERTIFICATE:
+			return "Failed to get SSL certificate"
+		case .FAILED_TO_GET_PRIVATE_KEY:
+			return "Failed to get private key from certificate"
+		case .SSL_ACCEPT_FAILED:
+			return "Failed to accept socket via SSL"
+		case .SSL_CONNECT_FAILED:
+			return "Failed to connect socket via SSL"
+		}
 	}
 
-	/**
-	Utility method for sending a message to the connected client
-
-	- parameters:
-		- msg: Message to send
-	*/
-	open func send(_ msg: String) {
-		let _ = MessageHandlerC.sendMessage(ssl: ssl, sock: sock, msg: msg)
-	}
-
-	/**
-	Terminates the connection to the client
-	*/
-	open func stop() {
-		msgThread?.running = false
-		close(sock)
-	}
-
-	/**
-	Determine whether the handler is still live
-
-	- returns:
-	Whether the message thread, if present, is still running
-	*/
-	open func isRunning() -> Bool {
-		return msgThread?.running ?? false
-	}
-
-	open func getUsername() -> String {
-		return msgThread!.username
-	}
-	
 }

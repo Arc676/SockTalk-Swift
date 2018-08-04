@@ -135,7 +135,13 @@ import Foundation
 
 public extension SockTalkClient {
 
-	public func initialize(port: Int, host: String, username: String) {
+	public func initialize(port: Int, host: String, username: String, cert: URL?, key: URL?) {
+		if cert == nil || key == nil {
+			ssl = nil
+		} else {
+			ssl = SSLWrapper()
+			ssl?.initializeSSL(cert!.absoluteString, key: key!.absoluteString, isServer: false)
+		}
 		self.username = username
 		sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
@@ -155,21 +161,27 @@ public extension SockTalkClient {
 		}
 		servinfo?.deallocate()
 
-		write(sock!, username, username.count)
 		let registration = UnsafeMutablePointer<UInt8>.allocate(capacity: 2)
-		let _ = read(sock!, registration, 1)
-		if String(cString: registration) == "N" {
-			registration.deallocate()
+		if ssl == nil {
+			write(sock!, username, username.count)
+			let _ = read(sock!, registration, 1)
+		} else {
+			ssl?.setupSSL(sock!)
+			ssl?.sendSSLMessage(username)
+			ssl?.readSSLMessage(registration, len: 1)
+		}
+		let feedback = String(cString: registration)
+		registration.deallocate()
+		if feedback == "N" {
 			close(sock!)
 			return
 		}
-		registration.deallocate()
-		msgThread = MsgThread(sock: sock!, handler: self, server: nil)
+		msgThread = MsgThread(sock: sock!, ssl: ssl, handler: self, server: nil)
 		handleMessage("Connected", type: .INFO, src: "Info")
 	}
 
 	public func send(_ msg: String) -> Int {
-		return MessageHandlerC.sendMessage(sock: sock!, msg: msg)
+		return MessageHandlerC.sendMessage(ssl: ssl, sock: sock!, msg: msg)
 	}
 
 	public func closeClient() {

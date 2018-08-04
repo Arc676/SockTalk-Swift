@@ -32,6 +32,7 @@
 		716DA23E2115CCA30053342F /* SSLWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 716DA23C2115CCA30053342F /* SSLWrapper.m */; };
 		716DA24D2115FBD30053342F /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 716DA24B2115FBD30053342F /* libssl.a */; };
 		716DA24E2115FBD30053342F /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 716DA24C2115FBD30053342F /* libcrypto.a */; };
+		716DA2502115FC780053342F /* ErrorCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716DA24F2115FC780053342F /* ErrorCodes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +89,7 @@
 		716DA23F2115CDC90053342F /* SockTalk-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SockTalk-Bridging-Header.h"; sourceTree = "<group>"; };
 		716DA24B2115FBD30053342F /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
 		716DA24C2115FBD30053342F /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
+		716DA24F2115FC780053342F /* ErrorCodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorCodes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,8 +116,8 @@
 		716DA0E3210C7B230053342F = {
 			isa = PBXGroup;
 			children = (
-				716DA24A2115FBC10053342F /* OpenSSL */,
 				716DA0F8210C7B850053342F /* Meta */,
+				716DA24A2115FBC10053342F /* OpenSSL */,
 				716DA0EF210C7B230053342F /* SockTalk Lib */,
 				716DA110210E566F0053342F /* SockTalk */,
 				716DA0EE210C7B230053342F /* Products */,
@@ -150,6 +152,7 @@
 				716DA23B2115CCA30053342F /* SSLWrapper.h */,
 				716DA23C2115CCA30053342F /* SSLWrapper.m */,
 				716DA23F2115CDC90053342F /* SockTalk-Bridging-Header.h */,
+				716DA24F2115FC780053342F /* ErrorCodes.swift */,
 			);
 			path = "SockTalk Lib";
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 				716DA102210C9A4E0053342F /* SockTalkClientHandler.swift in Sources */,
 				716DA104210C9AE40053342F /* SockTalkClient.swift in Sources */,
 				716DA10A210DBC480053342F /* SockTalkServerExt.swift in Sources */,
+				716DA2502115FC780053342F /* ErrorCodes.swift in Sources */,
 				716DA124210E5B160053342F /* SockTalkClientExt.swift in Sources */,
 				716DA12F211206810053342F /* MessageHandlerC.swift in Sources */,
 				716DA23E2115CCA30053342F /* SSLWrapper.m in Sources */,

@@ -140,9 +140,17 @@
 @interface SSLWrapper : NSObject
 
 @property (assign) SSL_CTX* sslctx;
+@property (assign) SSL* ssl;
 
 - (int) initializeSSL:(NSString*)cert key:(NSString*)priv isServer:(BOOL)isServer;
 - (void) destroySSL;
 - (void) shutdownSSL:(SSL*)ssl;
+
+- (int) setupSSL:(int)sock;
+
+- (SSLWrapper*) createClientSSL:(int)sock;
+
+- (int) readSSLMessage:(void*)buf len:(int)len;
+- (int)sendSSLMessage:(NSString *)msg;
 
 @end
