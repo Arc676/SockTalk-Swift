@@ -140,7 +140,7 @@ public extension SockTalkServer {
 			ssl = nil
 		} else {
 			ssl = SSLWrapper()
-			ssl?.initializeSSL(cert!.absoluteString, key: key!.absoluteString, isServer: true)
+			ssl?.initializeSSL(cert!.path, key: key!.path, isServer: true)
 		}
 		serverSock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)
 		if serverSock! < 0 {

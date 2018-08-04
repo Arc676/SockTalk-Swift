@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
+        <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -495,17 +496,17 @@
                                 </tabViewItems>
                             </tabView>
                             <scrollView fixedFrame="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KUc-mm-6U3">
-                                <rect key="frame" x="20" y="61" width="392" height="360"/>
+                                <rect key="frame" x="20" y="61" width="392" height="227"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <clipView key="contentView" ambiguous="YES" id="dBr-Qi-mSa">
-                                    <rect key="frame" x="1" y="1" width="375" height="358"/>
+                                    <rect key="frame" x="1" y="1" width="375" height="225"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView ambiguous="YES" editable="NO" importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="fyn-iH-O04">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="358"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="225"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="minSize" width="375" height="358"/>
+                                            <size key="minSize" width="375" height="225"/>
                                             <size key="maxSize" width="463" height="10000000"/>
                                             <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </textView>
@@ -517,7 +518,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="Ihs-5c-SHV">
-                                    <rect key="frame" x="376" y="1" width="15" height="358"/>
+                                    <rect key="frame" x="376" y="1" width="15" height="225"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
@@ -555,12 +556,69 @@ DQ
                                     <action selector="sendMessage:" target="XfG-lQ-9wD" id="lZp-BZ-8yg"/>
                                 </connections>
                             </button>
+                            <box fixedFrame="YES" title="SSL" translatesAutoresizingMaskIntoConstraints="NO" id="7jp-94-L10">
+                                <rect key="frame" x="17" y="292" width="398" height="129"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <view key="contentView" id="mBh-Xv-MuU">
+                                    <rect key="frame" x="2" y="2" width="394" height="112"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KFc-cH-OhZ">
+                                            <rect key="frame" x="18" y="76" width="91" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="check" title="Enable SSL" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="xAh-HW-xSk">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                        </button>
+                                        <pathControl verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bWD-wv-RkG">
+                                            <rect key="frame" x="96" y="48" width="278" height="22"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <pathCell key="cell" selectable="YES" editable="YES" alignment="left" id="bxj-yS-eOL">
+                                                <font key="font" metaFont="system"/>
+                                                <url key="url" string="file://localhost/Applications/"/>
+                                                <color key="backgroundColor" red="0.8980392157" green="0.92549019610000005" blue="0.97254901959999995" alpha="1" colorSpace="deviceRGB"/>
+                                            </pathCell>
+                                        </pathControl>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6nV-JX-cYz">
+                                            <rect key="frame" x="18" y="53" width="68" height="17"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Certificate" id="xG8-9g-RRL">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ddC-Gj-N3q">
+                                            <rect key="frame" x="18" y="28" width="72" height="17"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Private Key" id="Zaz-Kt-eGy">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <pathControl verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hr3-BB-9xN">
+                                            <rect key="frame" x="96" y="23" width="278" height="22"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <pathCell key="cell" selectable="YES" editable="YES" alignment="left" id="DwU-Zh-HST">
+                                                <font key="font" metaFont="system"/>
+                                                <url key="url" string="file://localhost/Applications/"/>
+                                                <color key="backgroundColor" red="0.8980392157" green="0.92549019610000005" blue="0.97254901959999995" alpha="1" colorSpace="deviceRGB"/>
+                                            </pathCell>
+                                        </pathControl>
+                                    </subviews>
+                                </view>
+                            </box>
                         </subviews>
                     </view>
                     <connections>
+                        <outlet property="certPath" destination="bWD-wv-RkG" id="oZT-OS-xcy"/>
                         <outlet property="clientIPField" destination="tef-GB-gYP" id="QBb-9e-8Tb"/>
                         <outlet property="clientPortField" destination="Bhh-FS-a3s" id="pAS-AO-aTt"/>
                         <outlet property="clientUsernameField" destination="PFe-nx-Zrr" id="9Gj-aE-XtA"/>
+                        <outlet property="enableSSL" destination="KFc-cH-OhZ" id="CoI-dv-w0d"/>
+                        <outlet property="keyPath" destination="hr3-BB-9xN" id="V2m-0H-CNc"/>
                         <outlet property="msgField" destination="yGm-CV-dQ8" id="UAV-Bd-ZUr"/>
                         <outlet property="servPortField" destination="pcN-BZ-EDE" id="yrg-J2-5vt"/>
                         <outlet property="transcript" destination="fyn-iH-O04" id="KBo-qx-lrv"/>

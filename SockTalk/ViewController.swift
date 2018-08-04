@@ -33,6 +33,9 @@ class ViewController: NSViewController, SockTalkServer, SockTalkClient {
 	var state = 0 // start disconnected
 
 	// MARK: - SSL
+	@IBOutlet weak var enableSSL: NSButton!
+	@IBOutlet weak var certPath: NSPathControl!
+	@IBOutlet weak var keyPath: NSPathControl!
 	var ssl: SSLWrapper?
 
 	// MARK: - Server properties
@@ -49,8 +52,14 @@ class ViewController: NSViewController, SockTalkServer, SockTalkClient {
 	@IBAction func startHosting(_ sender: Any) {
 		username = "Server"
 		let port = servPortField.integerValue
+		var cert: URL? = nil
+		var key: URL? = nil
+		if enableSSL.state == NSControl.StateValue.on {
+			cert = certPath.url
+			key = keyPath.url
+		}
 		// initialize server
-		initialize(port: port, cert: nil, key: nil)
+		initialize(port: port, cert: cert, key: key)
 		state = HOSTING
 	}
 
@@ -70,8 +79,14 @@ class ViewController: NSViewController, SockTalkServer, SockTalkClient {
 		let host = clientIPField.stringValue
 		let port = clientPortField.integerValue
 		let username = clientUsernameField.stringValue
+		var cert: URL? = nil
+		var key: URL? = nil
+		if enableSSL.state == NSControl.StateValue.on {
+			cert = certPath.url
+			key = keyPath.url
+		}
 		// initialize client
-		initialize(port: port, host: host, username: username, cert: nil, key: nil)
+		initialize(port: port, host: host, username: username, cert: cert, key: key)
 		state = CONNECTED
 	}
 

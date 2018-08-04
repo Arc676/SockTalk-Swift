@@ -140,7 +140,7 @@ public extension SockTalkClient {
 			ssl = nil
 		} else {
 			ssl = SSLWrapper()
-			ssl?.initializeSSL(cert!.absoluteString, key: key!.absoluteString, isServer: false)
+			ssl?.initializeSSL(cert!.path, key: key!.path, isServer: false)
 		}
 		self.username = username
 		sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
