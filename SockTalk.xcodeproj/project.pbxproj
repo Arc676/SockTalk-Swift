@@ -27,6 +27,11 @@
 		716DA126210F5ABB0053342F /* SockTalk_Lib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 716DA0ED210C7B230053342F /* SockTalk_Lib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		716DA12D211205170053342F /* MessageHandlerExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716DA12C211205170053342F /* MessageHandlerExt.swift */; };
 		716DA12F211206810053342F /* MessageHandlerC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716DA12E211206810053342F /* MessageHandlerC.swift */; };
+		716DA23A2115BAAD0053342F /* opensslLicense.txt in Resources */ = {isa = PBXBuildFile; fileRef = 716DA2392115BAAD0053342F /* opensslLicense.txt */; };
+		716DA23D2115CCA30053342F /* SSLWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 716DA23B2115CCA30053342F /* SSLWrapper.h */; };
+		716DA23E2115CCA30053342F /* SSLWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 716DA23C2115CCA30053342F /* SSLWrapper.m */; };
+		716DA24D2115FBD30053342F /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 716DA24B2115FBD30053342F /* libssl.a */; };
+		716DA24E2115FBD30053342F /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 716DA24C2115FBD30053342F /* libcrypto.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +82,12 @@
 		716DA123210E5B160053342F /* SockTalkClientExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SockTalkClientExt.swift; sourceTree = "<group>"; };
 		716DA12C211205170053342F /* MessageHandlerExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageHandlerExt.swift; sourceTree = "<group>"; };
 		716DA12E211206810053342F /* MessageHandlerC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageHandlerC.swift; sourceTree = "<group>"; };
+		716DA2392115BAAD0053342F /* opensslLicense.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = opensslLicense.txt; sourceTree = "<group>"; };
+		716DA23B2115CCA30053342F /* SSLWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSLWrapper.h; sourceTree = "<group>"; };
+		716DA23C2115CCA30053342F /* SSLWrapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSLWrapper.m; sourceTree = "<group>"; };
+		716DA23F2115CDC90053342F /* SockTalk-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SockTalk-Bridging-Header.h"; sourceTree = "<group>"; };
+		716DA24B2115FBD30053342F /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
+		716DA24C2115FBD30053342F /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +95,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				716DA24E2115FBD30053342F /* libcrypto.a in Frameworks */,
+				716DA24D2115FBD30053342F /* libssl.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,6 +114,7 @@
 		716DA0E3210C7B230053342F = {
 			isa = PBXGroup;
 			children = (
+				716DA24A2115FBC10053342F /* OpenSSL */,
 				716DA0F8210C7B850053342F /* Meta */,
 				716DA0EF210C7B230053342F /* SockTalk Lib */,
 				716DA110210E566F0053342F /* SockTalk */,
@@ -133,6 +147,9 @@
 				716DA105210C9B450053342F /* AcceptThread.swift */,
 				716DA107210C9B4E0053342F /* MsgThread.swift */,
 				716DA101210C9A4E0053342F /* SockTalkClientHandler.swift */,
+				716DA23B2115CCA30053342F /* SSLWrapper.h */,
+				716DA23C2115CCA30053342F /* SSLWrapper.m */,
+				716DA23F2115CDC90053342F /* SockTalk-Bridging-Header.h */,
 			);
 			path = "SockTalk Lib";
 			sourceTree = "<group>";
@@ -140,6 +157,7 @@
 		716DA0F8210C7B850053342F /* Meta */ = {
 			isa = PBXGroup;
 			children = (
+				716DA2392115BAAD0053342F /* opensslLicense.txt */,
 				716DA0FB210C7BA60053342F /* LICENSE */,
 				716DA0F9210C7B900053342F /* README.md */,
 			);
@@ -167,6 +185,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		716DA24A2115FBC10053342F /* OpenSSL */ = {
+			isa = PBXGroup;
+			children = (
+				716DA24C2115FBD30053342F /* libcrypto.a */,
+				716DA24B2115FBD30053342F /* libssl.a */,
+			);
+			path = OpenSSL;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -175,6 +202,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				716DA0F2210C7B230053342F /* SockTalk.h in Headers */,
+				716DA23D2115CCA30053342F /* SSLWrapper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,6 +295,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				716DA0FC210C7BA60053342F /* LICENSE in Resources */,
+				716DA23A2115BAAD0053342F /* opensslLicense.txt in Resources */,
 				716DA0FA210C7B900053342F /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -297,6 +326,7 @@
 				716DA10A210DBC480053342F /* SockTalkServerExt.swift in Sources */,
 				716DA124210E5B160053342F /* SockTalkClientExt.swift in Sources */,
 				716DA12F211206810053342F /* MessageHandlerC.swift in Sources */,
+				716DA23E2115CCA30053342F /* SSLWrapper.m in Sources */,
 				716DA0FE210C7FE00053342F /* MessageHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -384,6 +414,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/OpenSSL";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -441,6 +473,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/OpenSSL";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
@@ -454,6 +488,7 @@
 		716DA0F6210C7B230053342F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -474,6 +509,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Arc676.LibSockTalk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/SockTalk Lib/SockTalk-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 			};
@@ -482,6 +519,7 @@
 		716DA0F7210C7B230053342F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -502,6 +540,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Arc676.LibSockTalk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/SockTalk Lib/SockTalk-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
@@ -515,10 +555,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = T42F23M422;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
 				INFOPLIST_FILE = SockTalk/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -526,6 +563,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Arc676.SockTalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -539,10 +577,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = T42F23M422;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
 				INFOPLIST_FILE = SockTalk/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -550,6 +585,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Arc676.SockTalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
