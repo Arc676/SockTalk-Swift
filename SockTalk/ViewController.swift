@@ -49,7 +49,8 @@ class ViewController: NSViewController, SockTalkServer, SockTalkClient {
 	// MARK: - Server UI
 
 	@IBOutlet weak var servPortField: NSTextField!
-
+	@IBOutlet weak var hostButton: NSButton!
+	
 	@IBAction func startHosting(_ sender: Any) {
 		username = "Server"
 		let port = servPortField.integerValue
@@ -63,6 +64,7 @@ class ViewController: NSViewController, SockTalkServer, SockTalkClient {
 		initialize(port: port, cert: cert, key: key)
 		if status == .SUCCESS {
 			state = HOSTING
+			toggleUIElements(false)
 		} else {
 			handleMessage(ErrorCodes.errToString(status), type: .ERROR, src: "Error")
 		}
@@ -79,6 +81,7 @@ class ViewController: NSViewController, SockTalkServer, SockTalkClient {
 	@IBOutlet weak var clientIPField: NSTextField!
 	@IBOutlet weak var clientPortField: NSTextField!
 	@IBOutlet weak var clientUsernameField: NSTextField!
+	@IBOutlet weak var joinButton: NSButton!
 	
 	@IBAction func joinChat(_ sender: Any) {
 		let host = clientIPField.stringValue
@@ -94,6 +97,7 @@ class ViewController: NSViewController, SockTalkServer, SockTalkClient {
 		initialize(port: port, host: host, username: username, cert: cert, key: key)
 		if status == .SUCCESS {
 			state = CONNECTED
+			toggleUIElements(true)
 		} else {
 			handleMessage(ErrorCodes.errToString(status), type: .ERROR, src: "Error")
 		}
@@ -111,7 +115,7 @@ class ViewController: NSViewController, SockTalkServer, SockTalkClient {
 			return
 		}
 		let msg = msgField.stringValue
-		transcript.string.append("\n\(username!): \(msg)")
+		updateTranscript("\n\(username!): \(msg)")
 		if state == HOSTING {
 			broadcast(msg, src: "Server")
 		} else if state == CONNECTED {
@@ -127,21 +131,36 @@ class ViewController: NSViewController, SockTalkServer, SockTalkClient {
 			closeClient()
 		}
 		state = DISCONNECTED
+		toggleUIElements(true)
 	}
 
 	func handleMessage(_ msg: String, type: MessageType, src: String) {
 		if state == HOSTING {
-			DispatchQueue.main.async {
-				self.transcript.string.append("\n\(src): \(msg)")
-			}
+			updateTranscript("\n\(src): \(msg)")
 			if src != "Error" && src != "Notice" {
 				broadcast(msg, src: src)
 			}
 		} else {
-			DispatchQueue.main.async {
-				self.transcript.string.append("\n\(msg)")
-			}
+			updateTranscript("\n\(msg)")
 		}
+	}
+
+	func updateTranscript(_ msg: String) {
+		DispatchQueue.main.async {
+			self.transcript.string.append(msg)
+			self.transcript.scrollRangeToVisible(
+				NSMakeRange(
+					self.transcript.string.count - 1, 1))
+		}
+	}
+
+	func toggleUIElements(_ state: Bool) {
+		servPortField.isEnabled = state
+		clientIPField.isEnabled = state
+		clientPortField.isEnabled = state
+		clientUsernameField.isEnabled = state
+		hostButton.isEnabled = state
+		joinButton.isEnabled = state
 	}
 
 }

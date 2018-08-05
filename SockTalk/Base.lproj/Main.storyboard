@@ -384,7 +384,7 @@
                                 <font key="font" metaFont="system"/>
                                 <tabViewItems>
                                     <tabViewItem label="Host" identifier="" id="CFH-XE-Y2L">
-                                        <view key="view" ambiguous="YES" id="e2R-41-DT7">
+                                        <view key="view" id="e2R-41-DT7">
                                             <rect key="frame" x="10" y="33" width="386" height="78"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
@@ -421,7 +421,7 @@
                                         </view>
                                     </tabViewItem>
                                     <tabViewItem label="Join" identifier="" id="Pri-RG-oRC">
-                                        <view key="view" id="fEs-de-edQ">
+                                        <view key="view" ambiguous="YES" id="fEs-de-edQ">
                                             <rect key="frame" x="10" y="33" width="386" height="78"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
@@ -577,7 +577,7 @@ DQ
                                             <pathCell key="cell" selectable="YES" editable="YES" alignment="left" id="bxj-yS-eOL">
                                                 <font key="font" metaFont="system"/>
                                                 <url key="url" string="file://localhost/Applications/"/>
-                                                <color key="backgroundColor" red="0.8980392157" green="0.92549019610000005" blue="0.97254901959999995" alpha="1" colorSpace="deviceRGB"/>
+                                                <color key="backgroundColor" red="0.89803921568627454" green="0.92549019607843142" blue="0.97254901960784312" alpha="1" colorSpace="deviceRGB"/>
                                             </pathCell>
                                         </pathControl>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6nV-JX-cYz">
@@ -604,7 +604,7 @@ DQ
                                             <pathCell key="cell" selectable="YES" editable="YES" alignment="left" id="DwU-Zh-HST">
                                                 <font key="font" metaFont="system"/>
                                                 <url key="url" string="file://localhost/Applications/"/>
-                                                <color key="backgroundColor" red="0.8980392157" green="0.92549019610000005" blue="0.97254901959999995" alpha="1" colorSpace="deviceRGB"/>
+                                                <color key="backgroundColor" red="0.89803921568627454" green="0.92549019607843142" blue="0.97254901960784312" alpha="1" colorSpace="deviceRGB"/>
                                             </pathCell>
                                         </pathControl>
                                     </subviews>
@@ -618,6 +618,8 @@ DQ
                         <outlet property="clientPortField" destination="Bhh-FS-a3s" id="pAS-AO-aTt"/>
                         <outlet property="clientUsernameField" destination="PFe-nx-Zrr" id="9Gj-aE-XtA"/>
                         <outlet property="enableSSL" destination="KFc-cH-OhZ" id="CoI-dv-w0d"/>
+                        <outlet property="hostButton" destination="Qi3-tk-1Kp" id="M6O-q5-yRA"/>
+                        <outlet property="joinButton" destination="j4E-Lj-frP" id="EA7-tX-4ui"/>
                         <outlet property="keyPath" destination="hr3-BB-9xN" id="V2m-0H-CNc"/>
                         <outlet property="msgField" destination="yGm-CV-dQ8" id="UAV-Bd-ZUr"/>
                         <outlet property="servPortField" destination="pcN-BZ-EDE" id="yrg-J2-5vt"/>
