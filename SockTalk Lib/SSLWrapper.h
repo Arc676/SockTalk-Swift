@@ -142,15 +142,56 @@
 @property (assign) SSL_CTX* sslctx;
 @property (assign) SSL* ssl;
 
+/**
+ * Initializes the SSL context (only needs to be called once
+ * when setting up communication)
+ * @param cert Path to SSL certificate file
+ * @param priv Path to private key file
+ * @param isServer Whether this instance belongs to a server object
+ * @return Status code indicating success or failure of initialization
+ */
 - (int) initializeSSL:(NSString*)cert key:(NSString*)priv isServer:(BOOL)isServer;
+
+/**
+ * Tears down the SSL context (only needs to be called once
+ * when shutting down communication)
+ */
 - (void) destroySSL;
+
+/**
+ * Shuts down an SSL instance
+ * @param ssl Instance to shut down
+ */
 - (void) shutdownSSL:(SSL*)ssl;
 
+/**
+ * Sets up SSL for the given socket (used by client)
+ * @param sock Socket to use
+ * @return Status code indicating success or failure
+ */
 - (int) setupSSL:(int)sock;
 
+/**
+ * Create a new instance containing the SSL instance
+ * for a new client connected via the given socket
+ * @param sock Client socket
+ * @return New instance with the SSL instance for communicating with the client
+ */
 - (SSLWrapper*) createClientSSL:(int)sock;
 
+/**
+ * Reads a message using the current SSL instance
+ * @param buf Buffer into which to read
+ * @param len Number of bytes to read
+ * @return Number of bytes read
+ */
 - (int) readSSLMessage:(void*)buf len:(int)len;
-- (int)sendSSLMessage:(NSString *)msg;
+
+/**
+ * Sends a message using the current SSL instance
+ * @param msg Message to send
+ * @return Number of bytes written to socket
+ */
+- (int) sendSSLMessage:(NSString *)msg;
 
 @end
