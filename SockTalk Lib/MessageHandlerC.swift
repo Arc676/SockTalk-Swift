@@ -134,7 +134,8 @@
 import Foundation
 
 class MessageHandlerC : MessageHandler {
-	
+
+	var status: ErrorCode = .SUCCESS
 	var ssl: SSLWrapper?
 
 	func handleMessage(_ msg: String, type: MessageType, src: String) {}

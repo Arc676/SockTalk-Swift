@@ -138,12 +138,20 @@ public extension SockTalkClient {
 	public func initialize(port: Int, host: String, username: String, cert: URL?, key: URL?) {
 		if cert == nil || key == nil {
 			ssl = nil
+			status = .SUCCESS
 		} else {
 			ssl = SSLWrapper()
-			ssl?.initializeSSL(cert!.path, key: key!.path, isServer: false)
+			status = ErrorCode(rawValue: Int((ssl!.initializeSSL(cert!.path, key: key!.path, isServer: false))))!
+		}
+		if status != .SUCCESS {
+			return
 		}
 		self.username = username
 		sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+		if sock! < 0 {
+			status = .CREATE_SOCKET_FAILED
+			return
+		}
 
 		var hints = addrinfo(
 			ai_flags: AI_PASSIVE,
@@ -157,6 +165,7 @@ public extension SockTalkClient {
 		var servinfo: UnsafeMutablePointer<addrinfo>?
 		getaddrinfo(host, "\(port)", &hints, &servinfo)
 		if connect(sock!, servinfo!.pointee.ai_addr, servinfo!.pointee.ai_addrlen) < 0 {
+			status = .FAILED_TO_CONNECT
 			return
 		}
 		servinfo?.deallocate()
@@ -173,6 +182,7 @@ public extension SockTalkClient {
 		let feedback = String(cString: registration)
 		registration.deallocate()
 		if feedback == "N" {
+			status = .REGISTRATION_FAILED
 			close(sock!)
 			return
 		}

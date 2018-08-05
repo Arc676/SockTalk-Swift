@@ -138,12 +138,17 @@ public extension SockTalkServer {
 	public func initialize(port: Int, cert: URL?, key: URL?) {
 		if cert == nil || key == nil {
 			ssl = nil
+			status = .SUCCESS
 		} else {
 			ssl = SSLWrapper()
-			ssl?.initializeSSL(cert!.path, key: key!.path, isServer: true)
+			status = ErrorCode(rawValue: Int((ssl!.initializeSSL(cert!.path, key: key!.path, isServer: true))))!
+		}
+		if status != .SUCCESS {
+			return
 		}
 		serverSock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)
 		if serverSock! < 0 {
+			status = .CREATE_SOCKET_FAILED
 			return
 		}
 
@@ -161,6 +166,7 @@ public extension SockTalkServer {
 		var servinfo: UnsafeMutablePointer<addrinfo>?
 		getaddrinfo(nil, "\(serverPort!)", &hints, &servinfo)
 		if bind(serverSock!, servinfo!.pointee.ai_addr, servinfo!.pointee.ai_addrlen) < 0 {
+			status = .BIND_SOCKET_FAILED
 			return
 		}
 		servinfo?.deallocate()
@@ -169,6 +175,7 @@ public extension SockTalkServer {
 		setsockopt(serverSock!, SOL_SOCKET, SO_REUSEADDR, &opt, socklen_t(Int.bitWidth / UInt8.bitWidth))
 
 		if listen(serverSock!, 5) < 0 {
+			status = .LISTEN_SOCKET_FAILED
 			return
 		}
 

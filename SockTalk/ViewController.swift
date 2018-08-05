@@ -31,6 +31,7 @@ class ViewController: NSViewController, SockTalkServer, SockTalkClient {
 	let CONNECTED		= 0b01
 	let DISCONNECTED	= 0b00
 	var state = 0 // start disconnected
+	var status: ErrorCode = .SUCCESS
 
 	// MARK: - SSL
 	@IBOutlet weak var enableSSL: NSButton!
@@ -60,7 +61,11 @@ class ViewController: NSViewController, SockTalkServer, SockTalkClient {
 		}
 		// initialize server
 		initialize(port: port, cert: cert, key: key)
-		state = HOSTING
+		if status == .SUCCESS {
+			state = HOSTING
+		} else {
+			handleMessage(ErrorCodes.errToString(status), type: .ERROR, src: "Error")
+		}
 	}
 
 	// MARK: - Client properties
@@ -87,7 +92,11 @@ class ViewController: NSViewController, SockTalkServer, SockTalkClient {
 		}
 		// initialize client
 		initialize(port: port, host: host, username: username, cert: cert, key: key)
-		state = CONNECTED
+		if status == .SUCCESS {
+			state = CONNECTED
+		} else {
+			handleMessage(ErrorCodes.errToString(status), type: .ERROR, src: "Error")
+		}
 	}
 
 	// MARK: - Common UI code

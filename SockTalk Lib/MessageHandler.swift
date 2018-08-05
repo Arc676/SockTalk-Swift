@@ -142,6 +142,7 @@ public enum MessageType {
 public protocol MessageHandler : class {
 
 	var ssl: SSLWrapper? { get set }
+	var status: ErrorCode { get set }
 
 	/**
 	Sends a message via a socket
