@@ -12,6 +12,12 @@ Compiling SockTalk requires that the OpenSSL be installed and that the static li
 
 See the repository of the C++ library for a more detailed description of the SockTalk protocol.
 
+## Version synchronicity
+
+Note that the C++ version of the library is the reference implementation. New features are generally added to that version before the Swift one. Releases that have the exact same version number are guaranteed to provide the same features. If feature availability diverges, this will be indicated in the version number.
+
+The frontends aim to make all of the library functions available in some way, but provide no guarantee of synchronized feature availability. The Cocoa frontend, having a GUI, is likely to always be more advanced than the C++ command line frontend. 
+
 ## Licensing
 
 Project available under GPLv3 with the exception that linking proprietary Apple libraries as well as the OpenSSL library is allowed. See `LICENSE` for full GPL text. See `opensslLicense.txt` for the full OpenSSL license.
