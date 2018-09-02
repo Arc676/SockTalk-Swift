@@ -23,7 +23,7 @@
 import Cocoa
 import SockTalk_Lib
 
-class ViewController: NSViewController, SockTalkServer, SockTalkClient {
+class ViewController: NSViewController, SockTalkServer, SockTalkClient, NSTableViewDataSource {
 
 	// MARK: - Application state
 
@@ -45,11 +45,15 @@ class ViewController: NSViewController, SockTalkServer, SockTalkClient {
 	var serverPort: Int?
 	var acceptThread: AcceptThread?
 	var handlers: [SockTalkClientHandler]?
+	var banlist: [[String]] = []
 
 	// MARK: - Server UI
 
 	@IBOutlet weak var servPortField: NSTextField!
 	@IBOutlet weak var hostButton: NSButton!
+
+	@IBOutlet weak var unbanField: NSTextField!
+	@IBOutlet weak var userlist: NSTableView!
 	
 	@IBAction func startHosting(_ sender: Any) {
 		username = "Server"
@@ -67,6 +71,42 @@ class ViewController: NSViewController, SockTalkServer, SockTalkClient {
 			toggleUIElements(false)
 		} else {
 			handleMessage(ErrorCodes.errToString(status), type: .ERROR, src: "Error")
+		}
+	}
+
+	@IBAction func kickSelectedUser(_ sender: Any) {
+		let row = userlist.selectedRow
+		if row != -1 {
+			let user = handlers![row].getUsername()
+			let _ = kickUser(user)
+		}
+	}
+
+	@IBAction func banSelectedUser(_ sender: Any) {
+		let row = userlist.selectedRow
+		if row != -1 {
+			let user = handlers![row].getUsername()
+			let _ = banUser(user)
+		}
+	}
+
+	@IBAction func unbanGivenUser(_ sender: Any) {
+		unbanUser(username: unbanField.stringValue, addr: nil)
+		unbanField.stringValue = ""
+	}
+
+	func numberOfRows(in tableView: NSTableView) -> Int {
+		return handlers?.count ?? 0
+	}
+
+	func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
+		if row >= handlers!.count {
+			return nil
+		}
+		if tableColumn?.title == "Username" {
+			return handlers![row].getUsername()
+		} else {
+			return handlers![row].ip
 		}
 	}
 
@@ -124,7 +164,7 @@ class ViewController: NSViewController, SockTalkServer, SockTalkClient {
 		msgField.stringValue = ""
 	}
 	
-	@IBAction func disconnect(_ sender: Any) {
+	@IBAction func disconnect(_ sender: Any?) {
 		if state == HOSTING {
 			closeServer()
 		} else if state == CONNECTED {
@@ -140,8 +180,18 @@ class ViewController: NSViewController, SockTalkServer, SockTalkClient {
 			if src != "Error" && src != "Notice" {
 				broadcast(msg, src: src)
 			}
+			if msg.hasSuffix("connected") {
+				DispatchQueue.main.async {
+					self.userlist.reloadData()
+				}
+			}
 		} else {
 			updateTranscript("\n\(msg)")
+			if msg.starts(with: "TERM: ") {
+				DispatchQueue.main.async {
+					self.disconnect(nil)
+				}
+			}
 		}
 	}
 
