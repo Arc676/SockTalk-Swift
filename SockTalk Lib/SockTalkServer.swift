@@ -141,6 +141,7 @@ public protocol SockTalkServer : MessageHandler {
 	var acceptThread: AcceptThread? { get set }
 
 	var handlers: [SockTalkClientHandler]? { get set }
+	var banlist: [[String]] { get set }
 
 	/**
 	Initialize server
@@ -172,15 +173,27 @@ public protocol SockTalkServer : MessageHandler {
 	func closeServer()
 
 	/**
-	Determines whether a username is invalid
+	Determines if a username is a reserved name
 
 	- parameters:
 		- username: Username to check
 
 	- returns:
-	Whether the username is reserved or taken by another client
+	Whether the username matches a reserved name
 	*/
-	func usernameTaken(_ username: String) -> Bool
+	func isReservedName(_ username: String) -> Bool
+
+	/**
+	Attempts to register a new user
+
+	- parameters:
+		- username: Username to check
+		- IP: IP address of new user
+
+	- returns:
+	Whether the registration succeeded
+	*/
+	func registerName(_ username: String, IP: String) -> Bool
 
 	/**
 	Broadcasts a message to all connected clients
@@ -197,7 +210,39 @@ public protocol SockTalkServer : MessageHandler {
 	- parameters:
 		- msg: Message to send
 		- recipient: Username of client to which to send the message
+
+	- returns:
+	Client handler for the recipient, if found
 	*/
-	func sendTo(_ msg: String, recipient: String)
+	func sendTo(_ msg: String, recipient: String) -> SockTalkClientHandler?
+
+	/**
+	Kicks a user and drops the corresponding client handler
+
+	- parameters:
+		- username: Username of user to kick
+		- reason: Reason for kick
+
+	- returns:
+	The client handler associated with the kicked user, if found
+	*/
+	func kickUser(_ username: String, reason: String) -> SockTalkClientHandler?
+
+	/**
+	Bans a user
+
+	- parameters:
+		- username: Username of user to ban
+	*/
+	func banUser(_ username: String)
+
+	/**
+	Unbans a user
+
+	- parameters:
+		- username: Username of user to unban
+		- addr: IP address to unban (if username not given)
+	*/
+	func unbanUser(username: String?, addr: String?)
 	
 }

@@ -142,6 +142,7 @@ public enum ErrorCode : Int {
 	case FAILED_TO_GET_PRIVATE_KEY // 7
 	case SSL_ACCEPT_FAILED
 	case SSL_CONNECT_FAILED // 9
+	case FORCIBLY_DISCONNECTED
 }
 
 open class ErrorCodes {
@@ -168,6 +169,8 @@ open class ErrorCodes {
 			return "Failed to accept socket via SSL"
 		case .SSL_CONNECT_FAILED:
 			return "Failed to connect socket via SSL"
+		case .FORCIBLY_DISCONNECTED:
+			return "Forcibly disconnected by server"
 		}
 	}
 

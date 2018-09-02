@@ -141,7 +141,7 @@ open class MsgThread {
 	var sock: Int32
 	var ssl: SSLWrapper?
 	var handler: MessageHandler
-	var server: SockTalkServer?
+	var ch: SockTalkClientHandler?
 
 	var running: Bool
 
@@ -152,14 +152,14 @@ open class MsgThread {
 		- sock: Socket from which to read messages
 		- ssl: SSLWrapper to use, if any
 		- handler: Message handler for incoming messages
-		- server: Server object for registration, if necessary
+		- ch: Client handler, if message thread is being used server-side
 	*/
-	init(sock: Int32, ssl: SSLWrapper?, handler: MessageHandler, server: SockTalkServer?) {
+	init(sock: Int32, ssl: SSLWrapper?, handler: MessageHandler, ch: SockTalkClientHandler?) {
 		self.username = ""
 		self.sock = sock
 		self.ssl = ssl
 		self.handler = handler
-		self.server = server
+		self.ch = ch
 		running = true
 
 		Thread(target: self, selector: #selector(run), object: nil).start()
@@ -167,7 +167,7 @@ open class MsgThread {
 
 	@objc func run() {
 		let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: MsgThread.BUF_SIZE)
-		if server != nil {
+		if ch != nil {
 			let user = UnsafeMutablePointer<UInt8>.allocate(capacity: 255)
 			if ssl == nil {
 				read(sock, user, 255)
@@ -176,7 +176,7 @@ open class MsgThread {
 			}
 			let username = String(cString: user)
 			user.deallocate()
-			let success = !server!.usernameTaken(username)
+			let success = ch!.server.registerName(username, IP: ch!.ip)
 			let _ = MessageHandlerC.sendMessage(
 				ssl: ssl,
 				sock: sock,

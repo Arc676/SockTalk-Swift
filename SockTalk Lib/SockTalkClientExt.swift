@@ -186,7 +186,7 @@ public extension SockTalkClient {
 			close(sock!)
 			return
 		}
-		msgThread = MsgThread(sock: sock!, ssl: ssl, handler: self, server: nil)
+		msgThread = MsgThread(sock: sock!, ssl: ssl, handler: self, ch: nil)
 		handleMessage("Connected", type: .INFO, src: "Info")
 	}
 

@@ -200,17 +200,26 @@ public extension SockTalkServer {
 		}
 	}
 
-	public func usernameTaken(_ username: String) -> Bool {
+	public func isReservedName(_ username: String) -> Bool {
+		return ["Server", "Info", "Error", "Notice", "TERM"].contains(username)
+	}
+
+	public func registerName(_ username: String, IP: String) -> Bool {
 		checkHandlers()
-		if username == "Server" || username == "Error" || username == "Info" {
-			return true
+		if isReservedName(username) {
+			return false
+		}
+		for banned in banlist {
+			if banned[1] == IP {
+				return false
+			}
 		}
 		for handler in handlers! {
 			if handler.getUsername() == username {
-				return true
+				return false
 			}
 		}
-		return false
+		return true
 	}
 
 	public func broadcast(_ msg: String, src: String) {
@@ -222,13 +231,14 @@ public extension SockTalkServer {
 		}
 	}
 
-	public func sendTo(_ msg: String, recipient: String) {
+	public func sendTo(_ msg: String, recipient: String) -> SockTalkClientHandler? {
 		for handler in handlers! {
 			if handler.getUsername() == recipient {
 				handler.send(msg)
-				break
+				return handler
 			}
 		}
+		return nil
 	}
 
 	public func closeServer() {
@@ -237,7 +247,30 @@ public extension SockTalkServer {
 		for handler in handlers! {
 			handler.stop()
 		}
+		handlers!.removeAll()
 		handleMessage("Server closed", type: .INFO, src: "Info")
+	}
+
+	public func kickUser(_ username: String, reason: String = "Kicked by server") -> SockTalkClientHandler? {
+		let ch = sendTo("TERM: \(reason)", recipient: username)
+		ch?.stop()
+		return ch
+	}
+
+	public func banUser(_ username: String) {
+		let ch = kickUser(username, reason: "Banned by server")
+		banlist.append([username, ch!.ip])
+	}
+
+	public func unbanUser(username: String?, addr: String?) {
+		var idx = 0
+		for banned in banlist {
+			if banned[0] == username || banned[1] == addr {
+				break
+			}
+			idx += 1
+		}
+		banlist.remove(at: idx)
 	}
 
 }

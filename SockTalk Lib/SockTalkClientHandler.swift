@@ -135,22 +135,52 @@ import Foundation
 
 open class SockTalkClientHandler {
 
+	var server: SockTalkServer
 	var msgThread: MsgThread?
 	var sock: Int32
 	var ssl: SSLWrapper?
+
+	var addr: sockaddr
+	public var ip: String
 
 	/**
 	Construct a new client handler
 
 	- parameters:
 		- sock: Socket on which to listen for messages
-		- server: Server object for registration
 		- ssl: SSLWrapper to use, if needed
+		- server: Server object
+		- addr: Socket address information for client
 	*/
-	init(sock: Int32, server: SockTalkServer, ssl: SSLWrapper?) {
+	init(sock: Int32, ssl: SSLWrapper?, server: SockTalkServer, addr: sockaddr) {
+		self.addr = addr
+		var s: UnsafeMutablePointer<Int8>?
+		switch (addr.sa_family) {
+		case UInt8(AF_INET):
+			var addrin: sockaddr_in = withUnsafePointer(to: &self.addr) {
+				$0.withMemoryRebound(to: sockaddr_in.self, capacity: 1) {
+					$0.pointee
+				}
+			}
+			s = UnsafeMutablePointer<Int8>.allocate(capacity: Int(INET_ADDRSTRLEN))
+			inet_ntop(AF_INET, &(addrin.sin_addr), s, socklen_t(INET_ADDRSTRLEN))
+		case UInt8(AF_INET6):
+			var addrin: sockaddr_in6 = withUnsafePointer(to: &self.addr) {
+				$0.withMemoryRebound(to: sockaddr_in6.self, capacity: 1) {
+					$0.pointee
+				}
+			}
+			s = UnsafeMutablePointer<Int8>.allocate(capacity: Int(INET6_ADDRSTRLEN))
+			inet_ntop(AF_INET6, &(addrin.sin6_addr), s, socklen_t(INET6_ADDRSTRLEN))
+		default:
+			break
+		}
+		ip = s == nil ? "" : String(cString: s!)
+		s?.deallocate()
+		self.server = server
 		self.sock = sock
 		self.ssl = ssl
-		msgThread = MsgThread(sock: sock, ssl: ssl, handler: server, server: server)
+		msgThread = MsgThread(sock: sock, ssl: ssl, handler: server, ch: self)
 	}
 
 	/**
@@ -181,6 +211,12 @@ open class SockTalkClientHandler {
 		return msgThread?.running ?? false
 	}
 
+	/**
+	Obtains the username stored in the message thread
+
+	- returns:
+	The username for this user
+	*/
 	open func getUsername() -> String {
 		return msgThread!.username
 	}

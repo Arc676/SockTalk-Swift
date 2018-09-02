@@ -159,7 +159,9 @@ open class AcceptThread {
 
 	@objc func run() {
 		while running {
-			let clientSock = accept(sock, nil, nil)
+			var addr = sockaddr()
+			var size = socklen_t(MemoryLayout<sockaddr>.size)
+			let clientSock = accept(sock, &addr, &size)
 			if clientSock < 0 {
 				server.handleMessage("Failed to accept", type: .ERROR, src: "Error")
 				running = false
@@ -173,7 +175,7 @@ open class AcceptThread {
 						break
 					}
 				}
-				let handler = SockTalkClientHandler(sock: clientSock, server: server, ssl: cSSL)
+				let handler = SockTalkClientHandler(sock: clientSock, ssl: cSSL, server: server, addr: addr)
 				server.addHandler(handler)
 			}
 		}
