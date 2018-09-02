@@ -198,6 +198,7 @@ open class SockTalkClientHandler {
 	*/
 	open func stop() {
 		msgThread?.running = false
+		shutdown(sock, SHUT_RDWR)
 		close(sock)
 	}
 

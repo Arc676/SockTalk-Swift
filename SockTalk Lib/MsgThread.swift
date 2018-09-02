@@ -169,11 +169,18 @@ open class MsgThread {
 		let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: MsgThread.BUF_SIZE)
 		if ch != nil {
 			let user = UnsafeMutablePointer<UInt8>.allocate(capacity: 255)
+			// set timeout for registration
+			var none = timeval(), _5s = timeval()
+			_5s.tv_sec = 5
+			var size = socklen_t(MemoryLayout<timeval>.size)
+			getsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &none, &size)
+			setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &_5s, size)
 			if ssl == nil {
 				read(sock, user, 255)
 			} else {
 				ssl?.readSSLMessage(user, len: 255)
 			}
+			setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &none, size)
 			let username = String(cString: user)
 			user.deallocate()
 			let success = ch!.server.registerName(username, IP: ch!.ip)

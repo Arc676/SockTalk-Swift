@@ -201,7 +201,7 @@ public extension SockTalkServer {
 	}
 
 	public func isReservedName(_ username: String) -> Bool {
-		return ["Server", "Info", "Error", "Notice", "TERM"].contains(username)
+		return ["Server", "Info", "Error", "Notice", "TERM"].contains(username) || username.contains(" ")
 	}
 
 	public func registerName(_ username: String, IP: String) -> Bool {
@@ -244,6 +244,7 @@ public extension SockTalkServer {
 	public func closeServer() {
 		close(serverSock!)
 		acceptThread!.running = false
+		broadcast("Server closing", src: "TERM")
 		for handler in handlers! {
 			handler.stop()
 		}
